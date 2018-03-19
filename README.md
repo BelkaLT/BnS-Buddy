@@ -29,6 +29,24 @@ Requirements:
 
 Change Log:
 
+Version 5.8.9.5
++ Added: Popup for missing MetroFramework.dll file
++ Added: Auto-resize for email in login form
++ Added: Single-Instance only check
++ Added: Disabled auto-login by default if MultiClient is turned on
++ Added: 5 Seconds delay between clicks for refresh of user count to prevent spam and hang
++ Reworked: Changed the forget button to an X
++ Reworked: Fetching on AppStart would hang form for a couple of seconds
++ Fixed Bug: Changing remember me on login form would not sync with settings tab
++ Fixed Bug: Changed ip for TW server due to inaccurate ping
++ Fixed Bug: Fetching while having a slow connection to end-point for user online count would freeze the form
++ Fixed Bug: Unsecurely Fetched the user online count
++ Fixed Bug: Having Selected Japanese server would switch back to NA/EU if it was installed
++ Fixed Bug: Tooltip for Custom Client Name would be wrong
++ Fixed Bug: When BnS Buddy would be offline, it would try to fetch the count and have an overlapping html code
++ Fixed Bug: Wanting to login would wipe constantly the registry of the credentials [needs testing]
++ Fixed Bug: After wiping credential would cause crash
+
 Version 5.8.9.4
 + Added: Timer to say if connection is being slow during login
 + Added: Custom exe name for Client
