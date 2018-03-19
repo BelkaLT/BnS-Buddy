@@ -1,25 +1,24 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
-using System.Web.Security;
-using System.Management;
-using System.Security.Cryptography;
-using System.Security;
-using System.Collections;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Management;
+using System.Text;
+using System.Web.Security;
+using System.Windows.Forms;
 
 namespace Revamped_BnS_Buddy
 {
     public unsafe partial class Splash1 : MetroFramework.Forms.MetroForm
     {
         public static Splash1 CurrentForm;
+
         //Form f = Application.OpenForms["Form1"];
         public string AppPath = Path.GetDirectoryName(Application.ExecutablePath);
+
         public unsafe string username = @"";
         public unsafe string password = @"";
         public unsafe string Protect;
@@ -27,6 +26,7 @@ namespace Revamped_BnS_Buddy
         public unsafe string SALT = "";
         public bool remembered = false;
         public bool INTRUDER = false;
+        public bool autologinapproved = false;
 
         public Splash1()
         {
@@ -85,20 +85,31 @@ namespace Revamped_BnS_Buddy
                         if (regKey != null)
                         {
                             string tmp_select = metroComboBox1.SelectedItem.ToString();
-                            //tmp_select = tmp_select.Substring(0, tmp_select.IndexOf(" "));
                             tmp_user = regKey.OpenSubKey(tmp_select).GetValue("username").ToString();
                             tmp_pass = regKey.OpenSubKey(tmp_select).GetValue("password").ToString();
-                            metroTextBox1.Text = Dec(tmp_user);
-                            metroTextBox2.Text = Dec(tmp_pass);
-                            metroCheckBox1.CheckState = CheckState.Checked;
-                            metroButton3.Visible = true;
+                            tmp_user = Dec(tmp_user);
+                            tmp_pass = Dec(tmp_pass);
+                            if (tmp_user.Length > 0 && tmp_pass.Length > 0)
+                            {
+                                metroTextBox1.Text = tmp_user;
+                                metroTextBox2.Text = tmp_pass;
+                                metroCheckBox1.CheckState = CheckState.Checked;
+                                metroButton3.Visible = true;
+                                autologinapproved = true;
+                            }
+                            else
+                            {
+                                metroCheckBox1.CheckState = CheckState.Unchecked;
+                                metroButton3.Visible = false;
+                            }
                         }
                     }
                 }
 
                 // Check caps lock
                 CheckLock();
-            } catch { Prompt.Popup("Unknown Error Occured: Resetted Registry."); ClearRegistry(); }
+            }
+            catch { Prompt.Popup("Resetted Registry. Reasons below." + Environment.NewLine + "Possible causes include the following:" + Environment.NewLine + "- The protected data was tampered with and/or contained invalid characters."); ClearRegistry(); }
         }
 
         private void ReOrderTree(RegistryKey regKey)
@@ -118,24 +129,27 @@ namespace Revamped_BnS_Buddy
                         // String 2
                         string tmp_adder = regKey.OpenSubKey(InReg.ToString()).GetValue("username").ToString();
                         tmp_adder = Dec(tmp_adder);
-                        string tmp_origin = tmp_adder.Substring(tmp_adder.IndexOf("@") + 1);
-                        tmp_adder = tmp_adder.Substring(0, tmp_adder.IndexOf("@"));
-                        // Compare
-                        if (InReg.ToString() == (tmp_adder + " (" + tmp_origin + ") "))
+                        if (tmp_adder.Length > 0)
                         {
-                            if (!metroComboBox1.Items.Contains(tmp_adder + " (" + tmp_origin + ") "))
+                            string tmp_origin = tmp_adder.Substring(tmp_adder.IndexOf("@") + 1);
+                            tmp_adder = tmp_adder.Substring(0, tmp_adder.IndexOf("@"));
+                            // Compare
+                            if (InReg.ToString() == (tmp_adder + " (" + tmp_origin + ") "))
                             {
-                                metroComboBox1.Items.Add(tmp_adder + " (" + tmp_origin + ") ");
+                                if (!metroComboBox1.Items.Contains(tmp_adder + " (" + tmp_origin + ") "))
+                                {
+                                    metroComboBox1.Items.Add(tmp_adder + " (" + tmp_origin + ") ");
+                                }
                             }
-                        }
-                        else // Convert if old then add
-                        {
-                            // Conversion
-                            RegistryKey tmpkey = regKey;
-                            tmpkey = tmpkey.OpenSubKey(InReg);
-                            RenameSubKey(regKey, InReg.ToString(), tmp_adder + " (" + tmp_origin + ") ");
-                            // Add
-                            DidItWork = true;
+                            else // Convert if old then add
+                            {
+                                // Conversion
+                                RegistryKey tmpkey = regKey;
+                                tmpkey = tmpkey.OpenSubKey(InReg);
+                                RenameSubKey(regKey, InReg.ToString(), tmp_adder + " (" + tmp_origin + ") ");
+                                // Add
+                                DidItWork = true;
+                            }
                         }
                     }
                 }
@@ -181,9 +195,9 @@ namespace Revamped_BnS_Buddy
                 destinationKey.SetValue(valueName, objValue, valKind);
             }
 
-            //For Each subKey 
-            //Create a new subKey in destinationKey 
-            //Call myself 
+            //For Each subKey
+            //Create a new subKey in destinationKey
+            //Call myself
             foreach (string sourceSubKeyName in sourceKey.GetSubKeyNames())
             {
                 RegistryKey sourceSubKey = sourceKey.OpenSubKey(sourceSubKeyName);
@@ -268,14 +282,14 @@ namespace Revamped_BnS_Buddy
             return sb.ToString();
         }
 
-        string Enc(string s)
+        private string Enc(string s)
         {
             s = String.Concat(s, SALT);
             s = Convert.ToBase64String(MachineKey.Protect(Encoding.UTF8.GetBytes(s), "Basic Enc"));
             return s;
         }
 
-        string Dec(string s)
+        private string Dec(string s)
         {
             s = Encoding.UTF8.GetString(MachineKey.Unprotect(Convert.FromBase64String(s), "Basic Enc"));
             if (s.Contains(SALT))
@@ -330,9 +344,7 @@ namespace Revamped_BnS_Buddy
             }
             // return
             return bool_data;
-        } 
-
-
+        }
 
         public void Perform()
         {
@@ -344,7 +356,6 @@ namespace Revamped_BnS_Buddy
                 {
                     username = @metroTextBox1.Text.ToString();
                     password = @metroTextBox2.Text.ToString();
-
 
                     if (metroCheckBox1.CheckState == CheckState.Checked)
                     {
@@ -367,7 +378,7 @@ namespace Revamped_BnS_Buddy
                                 File.WriteAllText(@AppPath + "\\Settings.ini", tmp);
                             }
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Prompt.Popup(e.ToString());
                             // nothing here
@@ -411,7 +422,6 @@ namespace Revamped_BnS_Buddy
                         }
                     }
 
-
                     this.Hide();
                     this.Close();
                 }
@@ -445,7 +455,8 @@ namespace Revamped_BnS_Buddy
             Perform();
         }
 
-        string DataPath = Revamped_BnS_Buddy.Form1.CurrentForm.DataPath;
+        private string DataPath = Revamped_BnS_Buddy.Form1.CurrentForm.DataPath;
+
         private void metroButton2_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -512,9 +523,18 @@ namespace Revamped_BnS_Buddy
                 {
                     tmp_user = regKey.OpenSubKey(user).GetValue("username").ToString();
                     tmp_pass = regKey.OpenSubKey(user).GetValue("password").ToString();
-                    metroTextBox1.Text = Dec(tmp_user);
-                    metroTextBox2.Text = Dec(tmp_pass);
-                    metroButton3.Visible = true;
+                    tmp_user = Dec(tmp_user);
+                    tmp_pass = Dec(tmp_pass);
+                    if (tmp_user.Length > 0 && tmp_pass.Length > 0)
+                    {
+                        metroTextBox1.Text = tmp_user;
+                        metroTextBox2.Text = tmp_pass;
+                        metroButton3.Visible = true;
+                    }
+                    else
+                    {
+                        metroButton3.Visible = false;
+                    }
                 }
             }
             catch
@@ -550,7 +570,7 @@ namespace Revamped_BnS_Buddy
                     StartPosition = FormStartPosition.CenterScreen
                 };
                 MetroFramework.Controls.MetroLabel textLabel = new MetroFramework.Controls.MetroLabel() { Dock = DockStyle.Fill, AutoSize = true, Left = 5, Top = 0, Text = Message + Environment.NewLine + Environment.NewLine, Width = 270, Height = 40, TextAlign = ContentAlignment.MiddleCenter, Theme = MetroFramework.MetroThemeStyle.Dark };
-                MetroFramework.Controls.MetroButton confirmation = new MetroFramework.Controls.MetroButton() {Dock = DockStyle.Bottom, Text = "Ok", Left = 5, Width = 100, Top = (prompt.Height - 20), DialogResult = DialogResult.OK, Theme = MetroFramework.MetroThemeStyle.Dark };
+                MetroFramework.Controls.MetroButton confirmation = new MetroFramework.Controls.MetroButton() { Dock = DockStyle.Bottom, Text = "Ok", Left = 5, Width = 100, Top = (prompt.Height - 20), DialogResult = DialogResult.OK, Theme = MetroFramework.MetroThemeStyle.Dark };
                 prompt.Controls.Add(confirmation);
                 prompt.Controls.Add(textLabel);
                 prompt.AcceptButton = confirmation;
@@ -658,12 +678,15 @@ namespace Revamped_BnS_Buddy
                 // Skip if multiclient is active :3
                 if (Form1.CurrentForm.metroLabel81.Text != "Active" && Form1.CurrentForm.metroLabel82.Text != "Active")
                 {
-                    Perform();
+                    if (autologinapproved)
+                    {
+                        Perform();
+                    } 
                 }
             }
         }
 
-        static void lineChanger(string newText, string fileName, int line_to_edit)
+        private static void lineChanger(string newText, string fileName, int line_to_edit)
         {
             string[] arrLine = File.ReadAllLines(fileName);
             arrLine[line_to_edit - 1] = newText;
@@ -675,10 +698,24 @@ namespace Revamped_BnS_Buddy
             if (metroCheckBox1.Checked)
             {
                 lineChanger("rememberme = true", @AppPath + "\\Settings.ini", 31);
+                Form1.CurrentForm.metroToggle28.Checked = true;
             }
             else
             {
                 lineChanger("rememberme = false", @AppPath + "\\Settings.ini", 31);
+                Form1.CurrentForm.metroToggle28.Checked = false;
+            }
+        }
+
+        private void metroTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (metroTextBox1.Text.Length >= 40)
+            {
+                metroTextBox1.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
+            }
+            else if (metroTextBox1.Text.Length <= 39)
+            {
+                metroTextBox1.FontWeight = MetroFramework.MetroTextBoxWeight.Regular;
             }
         }
     }
@@ -693,6 +730,7 @@ namespace Security
     public class FingerPrint
     {
         private static string fingerPrint = string.Empty;
+
         public static string Value()
         {
             fingerPrint = String.Empty;
@@ -704,25 +742,28 @@ namespace Security
                 try
                 {
                     a1 = cpuId();
-                } catch { a1 = ""; }
+                }
+                catch { a1 = ""; }
                 try
                 {
                     a2 = biosId();
-                } catch { a2 = ""; }
+                }
+                catch { a2 = ""; }
                 try
                 {
                     a3 = baseId();
-                } catch { a3 = ""; }
+                }
+                catch { a3 = ""; }
                 string test = "";
-                if (a1 != null)
+                if (a1 != null || a1 != "")
                 {
                     test += a1;
                 }
-                if (a2 != null)
+                if (a2 != null || a2 != "")
                 {
                     test += a2;
                 }
-                if (a3 != null)
+                if (a3 != null || a3 != "")
                 {
                     test += a3;
                 }
@@ -730,39 +771,13 @@ namespace Security
                 {
                     test += test.Replace(" ", "");
                 }
-                fingerPrint = test;
+                fingerPrint = test.Trim();
             }
             return fingerPrint;
         }
+
         #region Original Device ID Getting Code
-        //Return a hardware identifier
-        private static string identifier
-        (string wmiClass, string wmiProperty, string wmiMustBeTrue)
-        {
-            string result = "";
-            ManagementClass mc = new ManagementClass(wmiClass);
-            ManagementObjectCollection moc = mc.GetInstances();
-            foreach (System.Management.ManagementObject mo in moc)
-            {
-                if (mo[wmiMustBeTrue].ToString() == "True")
-                {
-                    //Only get the first one
-                    if (result == "")
-                    {
-                        try
-                        {
-                            result = mo[wmiProperty].ToString();
-                            break;
-                        }
-                        catch
-                        {
-                            // nothing here
-                        }
-                    }
-                }
-            }
-            return result;
-        }
+
         //Return a hardware identifier
         private static string identifier(string wmiClass, string wmiProperty)
         {
@@ -788,6 +803,7 @@ namespace Security
             }
             return result;
         }
+
         private static string cpuId()
         {
             //Uses first CPU identifier available in order of preference
@@ -803,12 +819,11 @@ namespace Security
                     {
                         retVal = identifier("Win32_Processor", "Manufacturer");
                     }
-                    //Add clock speed for extra security
-                    //retVal += identifier("Win32_Processor", "MaxClockSpeed");
                 }
             }
             return retVal;
         }
+
         //BIOS Identifier
         private static string biosId()
         {
@@ -819,14 +834,7 @@ namespace Security
             + identifier("Win32_BIOS", "ReleaseDate")
             + identifier("Win32_BIOS", "Version");
         }
-        //Main physical hard drive ID
-        private static string diskId()
-        {
-            return identifier("Win32_DiskDrive", "Model")
-            + identifier("Win32_DiskDrive", "Manufacturer")
-            + identifier("Win32_DiskDrive", "Signature")
-            + identifier("Win32_DiskDrive", "TotalHeads");
-        }
+
         //Motherboard ID
         private static string baseId()
         {
@@ -835,18 +843,7 @@ namespace Security
             + identifier("Win32_BaseBoard", "Name")
             + identifier("Win32_BaseBoard", "SerialNumber");
         }
-        //Primary video controller ID
-        private static string videoId()
-        {
-            return identifier("Win32_VideoController", "DriverVersion")
-            + identifier("Win32_VideoController", "Name");
-        }
-        //First enabled network card ID
-        private static string macId()
-        {
-            return identifier("Win32_NetworkAdapterConfiguration",
-                "MACAddress", "IPEnabled");
-        }
-        #endregion
+
+        #endregion Original Device ID Getting Code
     }
 }

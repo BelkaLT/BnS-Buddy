@@ -344,8 +344,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroTabControl1
             // 
-            this.metroTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.metroTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroTabControl1.Controls.Add(this.Launcher);
             this.metroTabControl1.Controls.Add(this.Donators);
@@ -1453,8 +1453,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroComboBox3
             // 
-            this.metroComboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.metroComboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroComboBox3.FormattingEnabled = true;
             this.metroComboBox3.ItemHeight = 23;
@@ -1467,8 +1467,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroLabel37
             // 
-            this.metroLabel37.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.metroLabel37.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroLabel37.AutoSize = true;
             this.metroLabel37.Location = new System.Drawing.Point(2, 34);
@@ -1480,8 +1480,8 @@ namespace Revamped_BnS_Buddy
             // 
             // treeView1
             // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -1571,8 +1571,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroPanel2
             // 
-            this.metroPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.metroPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroPanel2.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
             this.metroPanel2.Controls.Add(this.metroLabel39);
@@ -1618,8 +1618,8 @@ namespace Revamped_BnS_Buddy
             // 
             // fastColoredTextBox1
             // 
-            this.fastColoredTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.fastColoredTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
         '(',
@@ -4117,7 +4117,7 @@ namespace Revamped_BnS_Buddy
         private MetroFramework.Controls.MetroLabel metroLabel98;
         private MetroFramework.Controls.MetroComboBox metroComboBox11;
         private System.Windows.Forms.GroupBox groupBox21;
-        private MetroFramework.Controls.MetroToggle metroToggle28;
+        public MetroFramework.Controls.MetroToggle metroToggle28;
         private MetroFramework.Controls.MetroLabel metroLabel75;
         private MetroFramework.Controls.MetroComboBox metroComboBox4;
         private MetroFramework.Controls.MetroButton metroButton32;

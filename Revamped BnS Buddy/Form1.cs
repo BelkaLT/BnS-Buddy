@@ -33,7 +33,6 @@ using System.Threading.Tasks;
 
 namespace Revamped_BnS_Buddy
 {
-    
     // Things marked with "HEY!" and "here!" Are unfinished and to be completed :)
     public unsafe partial class Form1 : MetroFramework.Forms.MetroForm
     {
@@ -97,7 +96,6 @@ namespace Revamped_BnS_Buddy
         public bool MultipleInstallationFound = false;
         public bool AutoClean = false;
         public bool KoreanTestInstalled = false;
-        public bool LastServerSelected = false; //here!
         public string online = "";
         public string offline = "";
         public int bad = Convert.ToInt32("120");
@@ -197,9 +195,8 @@ namespace Revamped_BnS_Buddy
             Details();
             // Fix .Dat Sizes
             FixSizes();
-            // Remember Last Used Server
-            LastUsedServer();
             // Form Ready!
+            Task.Delay(1000);
             EnableForm1();
         }
 
@@ -227,7 +224,7 @@ namespace Revamped_BnS_Buddy
             {
                 try
                 {
-                    string removeuser = exc.Message.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "[censoed]");
+                    string removeuser = exc.Message.Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "[censored]");
                     Prompt.Popup("Fatal Non-UI Error, can't proceed." + Environment.NewLine + "Reason: " + removeuser);
                 }
                 finally
@@ -242,7 +239,7 @@ namespace Revamped_BnS_Buddy
             try
             {
 
-                string removeuser = t.Exception.ToString().Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "[censoed]");
+                string removeuser = t.Exception.ToString().Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "[censored]");
                 Prompt.Popup("Report this error to Endless along with a screenshot, thank you!" + Environment.NewLine + removeuser);
             }
             catch
@@ -288,12 +285,6 @@ namespace Revamped_BnS_Buddy
             NotifAction();
         }
 
-        private void LastUsedServer()
-        {
-
-            // Grab
-        }
-
         public void StartupBuddy()
         {
             Process BnSBuddy = new Process();
@@ -304,29 +295,42 @@ namespace Revamped_BnS_Buddy
         }
         
         bool UserCountCheck = true;
+        bool manualcount = false;
         private void Get_Count()
         {
-            // manual check
-            string isitshown = "false";
-            if (!UserCountCheck)
+            // Manual Refresh
+            if (manualcount)
             {
-                isitshown = "true";
-            }
-            // Check, Validate & Notify
-            using (WebClient client = new WebClient())
-            {
-                // Check
-                try
+                string isitshown = "false";
+                if (!UserCountCheck)
                 {
-                    ServicePointManager.Expect100Continue = true;
-                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                    client.Headers.Add("User-Agent", "BnSBuddy");
-                    metroLabel94.Text = client.DownloadString("http://bnsbuddy.com/count/usercount.php?hidden=" + isitshown);
+                    isitshown = "true";
                 }
-                catch
+                // Check, Validate & Notify
+                using (WebClient client = new WebClient())
                 {
-                    metroLabel94.Text = "Error";
+                    // Check
+                    try
+                    {
+                        ServicePointManager.Expect100Continue = true;
+                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                        client.Headers.Add("User-Agent", "BnSBuddy");
+                        string str = client.DownloadString("https://bnsbuddy.com/count/usercount.php?hidden=" + isitshown);
+                        if (str.All(System.Char.IsDigit))
+                        {
+                            metroLabel94.Text = str;
+                        }
+                        else
+                        {
+                            metroLabel94.Text = "Offline";
+                        }
+                    }
+                    catch
+                    {
+                        metroLabel94.Text = "Error";
+                    }
                 }
+                manualcount = false;
             }
             // Run auto check
             bwcount = new BackgroundWorker();
@@ -363,7 +367,15 @@ namespace Revamped_BnS_Buddy
                         ServicePointManager.Expect100Continue = true;
                         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                         client.Headers.Add("User-Agent", "BnSBuddy");
-                        metroLabel94.Text = client.DownloadString("http://bnsbuddy.com/count/usercount.php?hidden=" + isitshown);
+                        string str = client.DownloadString("https://bnsbuddy.com/count/usercount.php?hidden=" + isitshown);
+                        if (str.All(System.Char.IsDigit))
+                        {
+                            metroLabel94.Text = str;
+                        }
+                        else
+                        {
+                            metroLabel94.Text = "Offline";
+                        }
                     }
                     catch
                     {
@@ -1695,8 +1707,6 @@ namespace Revamped_BnS_Buddy
             // Make sure app shows after load
             TopMost = true;
             TopMost = false;
-            // Get online user count
-            Get_Count();
             // Fix tab order
             //default tab bools
             bool i0 = false;
@@ -1823,6 +1833,9 @@ namespace Revamped_BnS_Buddy
                 metroComboBox4.SelectedIndex = metroComboBox4.FindStringExact(line);
                 defaultclient = line;
             }
+            // Get online user count + little delay
+            manualcount = true;
+            Task.Delay(1000).ContinueWith(t => Get_Count());
         }
 
         private void MultiCheck()
@@ -1851,6 +1864,11 @@ namespace Revamped_BnS_Buddy
             if (MultiExists == true)
             {
                 metroToggle22.Checked = true;
+                // Disable Auto Login
+                if (metroLabel81.Text == "Active" || metroLabel82.Text == "Active")
+                {
+                    metroToggle25.Enabled = false;
+                }
             }
         }
 
@@ -2606,7 +2624,7 @@ namespace Revamped_BnS_Buddy
             }
             else if (metroComboBox1.SelectedItem.ToString() == "Taiwan")
             {
-                IP = "139.175.50.166";
+                IP = "210.68.144.12";
                 regionID = "15";
                 AddTextLog("Changed RegionID to Taiwan!");
                 regionID = "15";
@@ -2884,11 +2902,11 @@ namespace Revamped_BnS_Buddy
                     if (File.Exists(RegPathlol + "\\NCLauncher.ini"))
                     {
                         string nc_content = File.ReadAllText(RegPathlol + "\\NCLauncher.ini");
-                        if (nc_content.Contains("Game_Region=North America") || nc_content.Contains("Game_Region=Nordamerika") || nc_content.Contains("du Nord") || !nc_content.Contains("Game_Region"))
+                        if ((nc_content.Contains("Game_Region=North America") || nc_content.Contains("Game_Region=Nordamerika") || nc_content.Contains("du Nord") || !nc_content.Contains("Game_Region")) && !nc_content.Contains("Update_ja") && !nc_content.Contains("TWBNS22"))
                         {
                             metroComboBox1.SelectedIndex = metroComboBox1.FindStringExact("North America");
                         }
-                        else if (nc_content.Contains("Game_Region=Europe") || nc_content.Contains("Game_Region=Europa")|| nc_content.Contains("Game_Region=L'Europe"))
+                        else if ((nc_content.Contains("Game_Region=Europe") || nc_content.Contains("Game_Region=Europa")|| nc_content.Contains("Game_Region=L'Europe")))
                         {
                             metroComboBox1.SelectedIndex = metroComboBox1.FindStringExact("Europe");
                         }
@@ -4926,11 +4944,20 @@ namespace Revamped_BnS_Buddy
         public void NotifAction()
         {
             // Dispose ContextMenu
-            ContextMenu.Dispose();
+            if (ContextMenu.IsParent && ContextMenu != null)
+            {
+                ContextMenu.Dispose();
+            }
             // Continue
             Show(); // Shows the program on taskbar
-            this.WindowState = FormWindowState.Normal; // Undoes the minimized state of the form
-            notifyIcon1.Visible = false; // Hides tray icon again
+            if (WindowState != FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Normal; // Undoes the minimized state of the form
+            }
+            if (notifyIcon1.Visible == true)
+            {
+                notifyIcon1.Visible = false; // Hides tray icon again
+            }
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -5116,18 +5143,21 @@ namespace Revamped_BnS_Buddy
             {
                 pictureBox1.Image.Dispose();
             }
-            NewSplash = FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString();
-            if (File.Exists(NewSplash))
+            if (listBox1.SelectedItem != null)
             {
-                pictureBox1.Image = System.Drawing.Image.FromFile(NewSplash);
-                // Enable preview button
-                metroButton34.Enabled = true;
-            }
-            else
-            {
-                listBox1.ClearSelected();
-                // Disable preview button
-                metroButton34.Enabled = false;
+                NewSplash = FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString();
+                if (File.Exists(NewSplash))
+                {
+                    pictureBox1.Image = System.Drawing.Image.FromFile(NewSplash);
+                    // Enable preview button
+                    metroButton34.Enabled = true;
+                }
+                else
+                {
+                    listBox1.ClearSelected();
+                    // Disable preview button
+                    metroButton34.Enabled = false;
+                }
             }
         }
 
@@ -5195,8 +5225,9 @@ namespace Revamped_BnS_Buddy
                         listBox1.Items.Add(file2.Name);
                     }
                 }
-                listBox1.SelectedIndex = 0;
-                pictureBox1.Image = System.Drawing.Image.FromFile(FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString());
+                listBox1.SelectedIndex = -1;
+                pictureBox1.Image.Dispose();
+                //pictureBox1.Image = System.Drawing.Image.FromFile(FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString());
             }
             catch
             {
@@ -8906,6 +8937,11 @@ namespace Revamped_BnS_Buddy
                             metroLabel82.Text = "Active";
                         } catch { Prompt.Popup("Error: Could not apply winmm.dll to \"" + RegPath + LauncherPath64 + "\"!"); }
                     } else { metroLabel82.Text = "-"; }
+                    // Disable Auto Login
+                    if (metroLabel81.Text == "Active" || metroLabel82.Text == "Active")
+                    {
+                        metroToggle25.Enabled = false;
+                    }
                 }
                 else
                 {
@@ -8926,6 +8962,10 @@ namespace Revamped_BnS_Buddy
                             metroLabel82.Text = "Inactive";
                         }
                         catch { Prompt.Popup("Error: Could not remove winmm.dll from \"" + RegPath + LauncherPath64 + "\"!"); }
+                    }
+                    if (metroLabel81.Text == "Inactive" && metroLabel82.Text == "Inactive")
+                    {
+                        metroToggle25.Enabled = true;
                     }
                 }
             }
@@ -9017,13 +9057,15 @@ namespace Revamped_BnS_Buddy
             {
                 lineChanger("usercountcheck = true", @AppPath + "\\Settings.ini", 41);
                 UserCountCheck = true;
-                Get_Count();
+                manualcount = true;
+                Task.Delay(500).ContinueWith(t => Get_Count());
             }
             else
             {
                 lineChanger("usercountcheck = false", @AppPath + "\\Settings.ini", 41);
                 UserCountCheck = false;
-                Get_Count();
+                manualcount = true;
+                Task.Delay(500).ContinueWith(t => Get_Count());
             }
         }
 
@@ -9043,10 +9085,29 @@ namespace Revamped_BnS_Buddy
             }
         }
 
+        System.Windows.Forms.Timer cooldown = new System.Windows.Forms.Timer();
         private void metroLabel94_Click(object sender, EventArgs e)
         {
-            Get_Count();
-            AddTextLog("[LOG] Refreshed Online User Count");
+            manualcount = true;
+            if (!cooldown.Enabled)
+            {
+                cooldown.Enabled = true;
+                // Set cooldown for 5 seconds
+                cooldown.Interval = 5000;
+                cooldown.Tick += Cooldown_Tick;
+                // Continue
+                Task.Delay(500).ContinueWith(t => Get_Count());
+                AddTextLog("[LOG] Refreshed Count");
+            }
+            else
+            {
+                AddTextLog("[LOG] On Cooldown");
+            }
+        }
+
+        private void Cooldown_Tick(object sender, EventArgs e)
+        {
+            cooldown.Enabled = false;
         }
 
         private void metroComboBox11_SelectedIndexChanged(object sender, EventArgs e)

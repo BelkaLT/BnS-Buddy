@@ -4,7 +4,7 @@
   <description asmv2:iconFile="p1_2134088_1e7a9a64.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="BnS Buddy" version="5.8.9.4" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="BnS Buddy" version="5.8.9.5" language="neutral" processorArchitecture="msil" />
     <commandLine file="BnS Buddy.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -54,16 +54,6 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="MetroFramework.Design" version="1.2.0.3" publicKeyToken="5F91A84759BF584A" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="MetroFramework.Fonts" version="1.2.0.3" publicKeyToken="5F91A84759BF584A" language="neutral" processorArchitecture="msil" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="SharpCompress" version="0.10.3.0" publicKeyToken="BEAF6F427E128133" language="neutral" processorArchitecture="msil" />
     </dependentAssembly>
   </dependency>
@@ -80,14 +70,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BnS Buddy.exe" size="6767104">
-      <assemblyIdentity name="BnS Buddy" version="5.8.9.4" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BnS Buddy.exe" size="6769664">
+      <assemblyIdentity name="BnS Buddy" version="5.8.9.5" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Q+Qyz79v/KoGn2CCvV0ucbBBNKEEYqO+TAe6yNey4rE=</dsig:DigestValue>
+        <dsig:DigestValue>uhEQJ4WEl1Z4/bxUp2y6x2T+HuOQSSJH9eb9bu2hFPc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ChilkatDotNet45.dll" size="8528896">
+      <assemblyIdentity name="ChilkatDotNet45" version="9.5.0.72" publicKeyToken="EB5FC1FC52EF09BD" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tDpo+oyFoD+0Nr+UZ96kPf65ExHB8tK4aR7QMv9oth8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -100,6 +102,30 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>uvMm9S05FV1yJGWUf0zGfm6Qz9D4mVTquVlWjpvDQqo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MetroFramework.Design.dll" size="15872">
+      <assemblyIdentity name="MetroFramework.Design" version="1.2.0.3" publicKeyToken="5F91A84759BF584A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>bxxz4ZV9n9TEaO7Ql2fkZr6Z9An1nRzPKVEE0lJb1GQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MetroFramework.Fonts.dll" size="672256">
+      <assemblyIdentity name="MetroFramework.Fonts" version="1.2.0.3" publicKeyToken="5F91A84759BF584A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>6WAw/dr354QBVn7oJICtde5I01VhmaP4XA7Gae2sLvQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
