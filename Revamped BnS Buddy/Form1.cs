@@ -1,35 +1,30 @@
-﻿using System;
-using System.Text;
-using System.IO;
-using System.Diagnostics;
-using System.Windows.Forms;
-using Microsoft.Win32;
-using System.Net.NetworkInformation;
-using System.Net;
-using System.Security.Cryptography;
-using Revamped_BnS_Buddy.Properties;
-using System.Threading;
-using System.ComponentModel;
-using System.Reflection;
-using System.Linq;
-using System.Xml;
-using System.Drawing;
-using FastColoredTextBoxNS;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Text.RegularExpressions;
-using System.Windows.Documents;
-using SharpCompress;
-using SharpCompress.Archive;
-using SharpCompress.Common;
-using System.Windows.Controls;
+﻿using FastColoredTextBoxNS;
 using Ionic.Zlib;
+using Microsoft.Win32;
 using Mono.Math;
-using System.Net.Sockets;
+using Revamped_BnS_Buddy.Properties;
+using SharpCompress;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
+using System.Net.Sockets;
 using System.Runtime;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace Revamped_BnS_Buddy
 {
@@ -38,8 +33,10 @@ namespace Revamped_BnS_Buddy
     {
         // static form
         public static Form1 CurrentForm;
+
         //
         public string LauncherPath = "\\bin";
+
         public string LauncherPath64 = "\\bin64";
         public string regionIDValue = "";
         public string TempPath = Path.GetTempPath();
@@ -110,6 +107,7 @@ namespace Revamped_BnS_Buddy
         public BackgroundWorker bnsdat;
         public BackgroundWorker bnsdatc;
         public Form2 s2;
+
         // Seperator
         public Form1()
         {
@@ -200,6 +198,18 @@ namespace Revamped_BnS_Buddy
             EnableForm1();
         }
 
+        private void metroButton35_Click(object sender, EventArgs e)
+        {
+            //metroTabControl1.TabPages.RemoveAt(9);
+            metroTabControl1.SelectTab(0);
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            // Ads OnClick
+            Process.Start("https://www.exitlag.com/refer/443658");
+        }
+
         private void Unhandler()
         {
             // Ignore when debugging with VS
@@ -207,7 +217,7 @@ namespace Revamped_BnS_Buddy
             {
                 // UI Graphical Issues.
                 Application.ThreadException += new ThreadExceptionEventHandler(Form1_UIThreadException);
-                // Add the event handler for handling non-UI thread exceptions to the event. 
+                // Add the event handler for handling non-UI thread exceptions to the event.
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             }
         }
@@ -238,7 +248,6 @@ namespace Revamped_BnS_Buddy
         {
             try
             {
-
                 string removeuser = t.Exception.ToString().Replace(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "[censored]");
                 Prompt.Popup("Report this error to Endless along with a screenshot, thank you!" + Environment.NewLine + removeuser);
             }
@@ -293,9 +302,10 @@ namespace Revamped_BnS_Buddy
             // Kill current app
             KillApp();
         }
-        
-        bool UserCountCheck = true;
-        bool manualcount = false;
+
+        private bool UserCountCheck = true;
+        private bool manualcount = false;
+
         private void Get_Count()
         {
             // Manual Refresh
@@ -342,7 +352,7 @@ namespace Revamped_BnS_Buddy
                 bwcount.RunWorkerAsync();
             }
         }
-        
+
         public void bwcount_dowork(object Sender, DoWorkEventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -451,8 +461,9 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        bool Reg64 = false;
-        Dictionary<string, string> Installs = new Dictionary<string, string>();
+        private bool Reg64 = false;
+        private Dictionary<string, string> Installs = new Dictionary<string, string>();
+
         public void GetRegDir()
         {
             // Step 1
@@ -643,7 +654,6 @@ namespace Revamped_BnS_Buddy
                 }
             }
             catch { AddTextLog("Null Value of RegKey"); }
-
 
             if (workedREG == false)
             {
@@ -1139,7 +1149,6 @@ namespace Revamped_BnS_Buddy
                 return test;
             }
 
-
             public static DialogResult RestoreConfigAsk()
             {
                 // Get Color
@@ -1377,11 +1386,12 @@ namespace Revamped_BnS_Buddy
             SetDefaultLanguage(metroComboBox5.SelectedItem.ToString());
         }
 
-        string autofinder = "";
-        string autocook = "";
-        bool Korean = false;
-        bool MultipleLangFound = false;
-        Dictionary<int, string> LangDictionary = new Dictionary<int, string>();
+        private string autofinder = "";
+        private string autocook = "";
+        private bool Korean = false;
+        private bool MultipleLangFound = false;
+        private Dictionary<int, string> LangDictionary = new Dictionary<int, string>();
+
         public void AutoDirFinder()
         {
             // Step 2
@@ -1417,60 +1427,63 @@ namespace Revamped_BnS_Buddy
                                         autocook = subbeddir2;
                                     }
                                 }
-                            } else { autocook = subbeddir2; }
+                            }
+                            else { autocook = subbeddir2; }
                         }
                     }
                 }
 
-                // Ignore if custom changed 
+                // Ignore if custom changed
                 //if (!ignorechange)
                 //{
-                    // Check for multiple lang
-                    if (LangDictionary.Count > 1 && MultipleLangFound == false)
+                // Check for multiple lang
+                if (LangDictionary.Count > 1 && MultipleLangFound == false)
+                {
+                    bool defaultlangisset = false;
+                    // Add langs to settings page 3
+                    for (int i = 0; LangDictionary.Count > i; i++)
                     {
-                        bool defaultlangisset = false;
-                        // Add langs to settings page 3
-                        for (int i = 0; LangDictionary.Count > i; i++)
-                        {
-                            metroComboBox5.Items.Add(LangDictionary[i]);
-                        }
-                        // Check if default value is set
-                        for (int iop = 0; metroComboBox5.Items.Count > iop; iop++)
-                        {
-                            if (metroComboBox5.Items[iop].ToString() == langremembered)
-                            {
-                                defaultlangisset = true;
-                                autocook = langremembered;
-                                metroComboBox5.SelectedIndex = metroComboBox5.FindString(langremembered);
-                                MultipleLangFound = true;
-                            }
-                        }
-                        // Continue if not set
-                        if (defaultlangisset == false)
-                        {
-                            string promptValue = Prompt.MultipleLang("Multiple languages of BnS has been found!" + Environment.NewLine + "Which language would you like to use?", "Warning!", LangDictionary);
-                            autocook = promptValue;
-                            SetDefaultLanguage(promptValue);
-                            MultipleLangFound = true;
-                            // since we got a new default, let's make sure it's set on true
-                            if (File.ReadAllText(@AppPath + "\\Settings.ini").Contains("langset = false"))
-                            {
-                                var fileContents2 = System.IO.File.ReadAllText(@AppPath + "\\Settings.ini");
-                                fileContents2 = fileContents2.Replace("langset = false", "langset = true");
-                                System.IO.File.WriteAllText(@AppPath + "\\Settings.ini", fileContents2);
-                            }
-                        }
-                        metroLabel56.Text = RegPath;
+                        metroComboBox5.Items.Add(LangDictionary[i]);
                     }
-               // } ignorechange = false;
+                    // Check if default value is set
+                    for (int iop = 0; metroComboBox5.Items.Count > iop; iop++)
+                    {
+                        if (metroComboBox5.Items[iop].ToString() == langremembered)
+                        {
+                            defaultlangisset = true;
+                            autocook = langremembered;
+                            metroComboBox5.SelectedIndex = metroComboBox5.FindString(langremembered);
+                            MultipleLangFound = true;
+                        }
+                    }
+                    // Continue if not set
+                    if (defaultlangisset == false)
+                    {
+                        string promptValue = Prompt.MultipleLang("Multiple languages of BnS has been found!" + Environment.NewLine + "Which language would you like to use?", "Warning!", LangDictionary);
+                        autocook = promptValue;
+                        SetDefaultLanguage(promptValue);
+                        MultipleLangFound = true;
+                        // since we got a new default, let's make sure it's set on true
+                        if (File.ReadAllText(@AppPath + "\\Settings.ini").Contains("langset = false"))
+                        {
+                            var fileContents2 = System.IO.File.ReadAllText(@AppPath + "\\Settings.ini");
+                            fileContents2 = fileContents2.Replace("langset = false", "langset = true");
+                            System.IO.File.WriteAllText(@AppPath + "\\Settings.ini", fileContents2);
+                        }
+                    }
+                    metroLabel56.Text = RegPath;
+                }
+                // } ignorechange = false;
                 // Check for korean
-                if (autocook != "Korean" && autofinder != "NCSoft") {
+                if (autocook != "Korean" && autofinder != "NCSoft")
+                {
                     AutoFoundModPath = RegPath + "\\contents\\Local\\" + autofinder + "\\" + autocook + "\\CookedPC";
                     // FIX PATH
                     AutoFoundModPath = AutoFoundModPath.Replace(@"\\", @"\");
                     // CONTINUE
                 }
-                else {
+                else
+                {
                     if (autocook == "")
                     {
                         autocook = "Korean";
@@ -1576,7 +1589,7 @@ namespace Revamped_BnS_Buddy
                 {
                     if (!Korean)
                     {
-                        FullPath = GamePath; 
+                        FullPath = GamePath;
                         // Fix path aka go back 3 folder
                         var tmppath = "";
                         tmppath = Directory.GetParent(FullPath).ToString();
@@ -1653,7 +1666,7 @@ namespace Revamped_BnS_Buddy
                 }
             }
         }
-        
+
         private void SetDefaultLanguage(string promptValue)
         {
             lineChanger("langpath = " + promptValue, @AppPath + "\\Settings.ini", 34);
@@ -1693,6 +1706,7 @@ namespace Revamped_BnS_Buddy
         }
 
         public bool AppStarted = false;
+
         public void EnableForm1()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -1718,71 +1732,79 @@ namespace Revamped_BnS_Buddy
             bool i6 = false;
             bool i7 = false;
             bool i8 = false;
+            bool i9 = false;
 
             foreach (TabPage tmp in metroTabControl1.TabPages)
             {
-                    if (tmp.Text == "Launcher" && i0 == false)
-                    {
+                if (tmp.Text == "Launcher" && i0 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(0, tmp);
-                        i0 = true;
-                    }
-                    else
-                    if (tmp.Text == "Dat Editor" && i1 == false)
-                    {
+                    i0 = true;
+                }
+                else
+                if (tmp.Text == "Dat Editor" && i1 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(1, tmp);
-                        i1 = true;
-                    }
-                    else
-                    if (tmp.Text == "Mod Manager" && i2 == false)
-                    {
+                    i1 = true;
+                }
+                else
+                if (tmp.Text == "Mod Manager" && i2 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(2, tmp);
-                        i2 = true;
-                    }
-                    else
-                    if (tmp.Text == "Splash Changer" && i4 == false)
-                    {
+                    i2 = true;
+                }
+                else
+                if (tmp.Text == "Splash Changer" && i4 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(4, tmp);
-                        i4 = true;
-                    }
-                    else
-                    if (tmp.Text == "Addons" && i3 == false)
-                    {
+                    i4 = true;
+                }
+                else
+                if (tmp.Text == "Addons" && i3 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(3, tmp);
-                        i3 = true;
-                    }
-                    else
-                    if (tmp.Text == "Settings" && i5 == false)
-                    {
+                    i3 = true;
+                }
+                else
+                if (tmp.Text == "Settings" && i5 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(5, tmp);
-                        i5 = true;
-                    }
-                    else
-                    if (tmp.Text == "About" && i7 == false)
-                    {
+                    i5 = true;
+                }
+                else
+                if (tmp.Text == "About" && i7 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(7, tmp);
-                        i7 = true;
-                    }
-                    else
-                    if (tmp.Text == "Donators" && i6 == false)
-                    {
+                    i7 = true;
+                }
+                else
+                if (tmp.Text == "Donators" && i6 == false)
+                {
                     metroTabControl1.TabPages.Remove(tmp);
                     metroTabControl1.TabPages.Insert(6, tmp);
-                        i6 = true;
-                    }
-                    else
-                    if (tmp.Text == "Extras" && i8 == false)
-                    {
-                        metroTabControl1.TabPages.Remove(tmp);
-                        metroTabControl1.TabPages.Insert(8, tmp);
-                        i8 = true;
-                    }
+                    i6 = true;
+                }
+                else
+                if (tmp.Text == "Extras" && i8 == false)
+                {
+                    metroTabControl1.TabPages.Remove(tmp);
+                    metroTabControl1.TabPages.Insert(8, tmp);
+                    i8 = true;
+                }
+                else
+                if (tmp.Text == "Ads" && i9 == false)
+                {
+                    metroTabControl1.TabPages.Remove(tmp);
+                    metroTabControl1.TabPages.Insert(9, tmp);
+                    i9 = true;
+                }
             }
 
             bool o0 = false;
@@ -1796,13 +1818,15 @@ namespace Revamped_BnS_Buddy
                     metroTabControl2.TabPages.Remove(tmp);
                     metroTabControl2.TabPages.Insert(0, tmp);
                     o0 = true;
-                } else
+                }
+                else
                 if (tmp.Text == "Page 2" && o1 == false)
                 {
                     metroTabControl2.TabPages.Remove(tmp);
                     metroTabControl2.TabPages.Insert(1, tmp);
                     o1 = true;
-                } else
+                }
+                else
                 if (tmp.Text == "Page 3" && o2 == false)
                 {
                     metroTabControl2.TabPages.Remove(tmp);
@@ -1812,9 +1836,10 @@ namespace Revamped_BnS_Buddy
                 // Fix cursor of metrotextbox6
                 metroTextBox6.Cursor = Cursors.Arrow;
             }
-            
-            // Switch tab to Launcher
-            metroTabControl1.SelectTab(0);
+
+            // Switch tab to Launcher/ADS
+            metroTabControl1.SelectTab(9);
+            //Prompt.Popup("Count: " + metroTabControl1.TabCount.ToString() + Environment.NewLine + "Index: " + metroTabControl1.TabIndex + Environment.NewLine + "TabPage Count: " + metroTabControl1.TabPages.Count);
             // Switch Settings tab to Page 1
             metroTabControl2.SelectTab(0);
             // Set Ping to Server
@@ -1849,7 +1874,8 @@ namespace Revamped_BnS_Buddy
                     MultiExists = true;
                 }
                 else { metroLabel81.Text = "Inactive"; }
-            } else { metroLabel81.Text = "-"; }
+            }
+            else { metroLabel81.Text = "-"; }
             if (Directory.Exists(RegPath + LauncherPath64))
             {
                 if (File.Exists(RegPath + LauncherPath64 + "\\winmm.dll"))
@@ -1883,6 +1909,7 @@ namespace Revamped_BnS_Buddy
             bw3.Disposed += new EventHandler(bw3_Dispoed);
             bw3.RunWorkerAsync();
         }
+
         public void bw3_Dispoed(object Sender, EventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -1891,6 +1918,7 @@ namespace Revamped_BnS_Buddy
                 s2.Close();
             }
         }
+
         public void bw3_DoWork(object Sender, DoWorkEventArgs e)
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -2160,7 +2188,8 @@ namespace Revamped_BnS_Buddy
                     {
                         CleanerVal = Convert.ToInt32(line);
                     }
-                } else { metroComboBox7.SelectedIndex = 0; }
+                }
+                else { metroComboBox7.SelectedIndex = 0; }
                 if (File.ReadAllText(AppPath + "\\Settings.ini").Contains("defaultset = true"))
                 {
                     string line = File.ReadLines(@AppPath + "\\Settings.ini").Skip(24).Take(1).First().Replace("default = ", "");
@@ -2331,13 +2360,13 @@ namespace Revamped_BnS_Buddy
             {
                 //
             }
-
         }
 
-        ProcessPriorityClass Priority = ProcessPriorityClass.Normal;
+        private ProcessPriorityClass Priority = ProcessPriorityClass.Normal;
+
         private void metroComboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(metroComboBox6.SelectedItem.ToString() == "Realtime")
+            if (metroComboBox6.SelectedItem.ToString() == "Realtime")
             {
                 Priority = ProcessPriorityClass.RealTime;
             }
@@ -2369,11 +2398,12 @@ namespace Revamped_BnS_Buddy
             {
                 foreach (var process in Process.GetProcessesByName("Client"))
                 {
-                    Prompt.Popup("Threads: " + process.Threads.ToString() + Environment.NewLine + "Physical Memory(bytes): " + process.WorkingSet64 + Environment.NewLine + "Virtual Memory(bytes): " + process.VirtualMemorySize64 + Environment.NewLine +"Title: " + process.MainWindowTitle);
+                    Prompt.Popup("Threads: " + process.Threads.ToString() + Environment.NewLine + "Physical Memory(bytes): " + process.WorkingSet64 + Environment.NewLine + "Virtual Memory(bytes): " + process.VirtualMemorySize64 + Environment.NewLine + "Title: " + process.MainWindowTitle);
                     process.PriorityClass = Priority;
                     AddTextLog("Changed Priority.");
                 }
-                if (customclientname != "") {
+                if (customclientname != "")
+                {
                     string tmp = customclientname.Replace(".exe", "");
                     foreach (var process in Process.GetProcessesByName(tmp))
                     {
@@ -2392,9 +2422,7 @@ namespace Revamped_BnS_Buddy
                 var newfileContents2 = fileContents2.Replace(tracker, Priority.ToString());
                 File.WriteAllText(@AppPath + "\\Settings.ini", newfileContents2);
             }
-            
         }
-
 
         public void Details()
         {
@@ -2530,7 +2558,8 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        string PreviousServer = "";
+        private string PreviousServer = "";
+
         public void PreSavedPaths(string region)
         {
             if (AppStarted)
@@ -2667,7 +2696,8 @@ namespace Revamped_BnS_Buddy
             // Set new active server
             if (Installs.ContainsKey(PreviousServer) || (Installs.ContainsKey("NA/EU") && (PreviousServer == "Europe" || PreviousServer == "North America")))
             {
-                if (PreviousServer != "Europe" && PreviousServer != "North America") {
+                if (PreviousServer != "Europe" && PreviousServer != "North America")
+                {
                     SaveDefault(Installs[PreviousServer]);
                 }
                 else
@@ -2677,8 +2707,9 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        bool Conflict = false;
-        bool workedSRV = false;
+        private bool Conflict = false;
+        private bool workedSRV = false;
+
         public void CheckServer()
         {
             // Check Server Usage
@@ -2906,7 +2937,7 @@ namespace Revamped_BnS_Buddy
                         {
                             metroComboBox1.SelectedIndex = metroComboBox1.FindStringExact("North America");
                         }
-                        else if ((nc_content.Contains("Game_Region=Europe") || nc_content.Contains("Game_Region=Europa")|| nc_content.Contains("Game_Region=L'Europe")))
+                        else if ((nc_content.Contains("Game_Region=Europe") || nc_content.Contains("Game_Region=Europa") || nc_content.Contains("Game_Region=L'Europe")))
                         {
                             metroComboBox1.SelectedIndex = metroComboBox1.FindStringExact("Europe");
                         }
@@ -3076,13 +3107,15 @@ namespace Revamped_BnS_Buddy
                 metroToggle1.CheckState = CheckState.Unchecked;
                 metroToggle1.Refresh();
             }
-            else 
+            else
             {
                 // Find the ones removed from previous session
-                if (File.Exists(FullPath + "\\Loading.pkg")) {
+                if (File.Exists(FullPath + "\\Loading.pkg"))
+                {
                     loadingpkg = true;
                 }
-                if (File.Exists(FullPath + "\\00009368.upk")) {
+                if (File.Exists(FullPath + "\\00009368.upk"))
+                {
                     runninglyn = true;
                 }
 
@@ -3199,6 +3232,7 @@ namespace Revamped_BnS_Buddy
         public bool BNSis64 = false;
         public bool isModded = false;
         private AutoResetEvent waitbw = new AutoResetEvent(false);
+
         public void CheckConfigBackup()
         {
             DirectoryInfo configfolder = new DirectoryInfo(DataPath);
@@ -3226,7 +3260,6 @@ namespace Revamped_BnS_Buddy
                 metroButton2.Enabled = true;
                 metroLabel14.Text = "Patched!";
             }
-
         }
 
         public void Compiler(string qwerty)
@@ -3265,7 +3298,7 @@ namespace Revamped_BnS_Buddy
                 BnsDat.Compress(usedfilepathonly, BNSis64);
                 // set task as completed
                 waitbw.Set();
-            } 
+            }
             else
             {
                 Prompt.Popup("Folder: " + usedfilepathonly + " Does not exist!");
@@ -3332,6 +3365,7 @@ namespace Revamped_BnS_Buddy
         }
 
         public bool workedREG = false;
+
         public void BnSFolder()
         {
             // Check if ain't already in settings
@@ -3376,85 +3410,86 @@ namespace Revamped_BnS_Buddy
             if (UpdateChecker == true)
             {
                 // Check, Validate & Notify
-                    // Check
-                    try
+                // Check
+                try
+                {
+                    if (ValidateDomain() == true)
                     {
-                        if (ValidateDomain() == true)
+                        try
                         {
+                            // Get BnS Buddy's Unique Serial Number
+                            X509Certificate certificate1;
                             try
                             {
-                                // Get BnS Buddy's Unique Serial Number
-                                X509Certificate certificate1;
-                                try
-                                {
-                                    certificate1 = X509Certificate2.CreateFromSignedFile(Application.ExecutablePath);
-                                    string BnSBuddySerial = certificate1.GetCertHashString();
-                                }
-                                catch { Prompt.Popup("BnS Buddy is not signed! Please Delete and get a fresh copy."); KillApp(); }
-                                string server = "updates.xxzer0modzxx.net";
-                                TcpClient clientVAR = new TcpClient(server, 443);
-                                var DomainCert = new RemoteCertificateValidationCallback(delegate (object snd, X509Certificate certificate, X509Chain chainLocal, SslPolicyErrors sslPolicyErrors)
-                                {
-                                    return true; //Accept every certificate, even if it's invalid
+                                certificate1 = X509Certificate2.CreateFromSignedFile(Application.ExecutablePath);
+                                string BnSBuddySerial = certificate1.GetCertHashString();
+                            }
+                            catch { Prompt.Popup("BnS Buddy is not signed! Please Delete and get a fresh copy."); KillApp(); }
+                            string server = "updates.xxzer0modzxx.net";
+                            TcpClient clientVAR = new TcpClient(server, 443);
+                            var DomainCert = new RemoteCertificateValidationCallback(delegate (object snd, X509Certificate certificate, X509Chain chainLocal, SslPolicyErrors sslPolicyErrors)
+                            {
+                                return true; //Accept every certificate, even if it's invalid
                                 });
                             using (SslStream sslStream = new SslStream(clientVAR.GetStream(), false, DomainCert))
+                            {
+                                string result = "";
+                                sslStream.AuthenticateAsClient(server);
+                                clientVAR.SendTimeout = 500;
+                                clientVAR.ReceiveTimeout = 1000;
+                                // Send request headers
+                                var builder = new StringBuilder();
+                                builder.AppendLine("GET /BuddyVersion.txt HTTP/1.1");
+                                builder.AppendLine("Host: updates.xxzer0modzxx.net");
+                                builder.AppendLine("User-Agent: BnSBuddy/" + Application.ProductVersion + " (compatible;)");
+                                builder.AppendLine("Connection: close");
+                                builder.AppendLine();
+                                var header = Encoding.ASCII.GetBytes(builder.ToString());
+                                sslStream.WriteAsync(header, 0, header.Length);
+                                // receive data
+                                using (var memory = new MemoryStream())
                                 {
-                                    string result = "";
-                                    sslStream.AuthenticateAsClient(server);
-                                    clientVAR.SendTimeout = 500;
-                                    clientVAR.ReceiveTimeout = 1000;
-                                    // Send request headers
-                                    var builder = new StringBuilder();
-                                    builder.AppendLine("GET /BuddyVersion.txt HTTP/1.1");
-                                    builder.AppendLine("Host: updates.xxzer0modzxx.net");
-                                    builder.AppendLine("User-Agent: BnSBuddy/" + Application.ProductVersion + " (compatible;)");
-                                    builder.AppendLine("Connection: close");
-                                    builder.AppendLine();
-                                    var header = Encoding.ASCII.GetBytes(builder.ToString());
-                                    sslStream.WriteAsync(header, 0, header.Length);
-                                    // receive data
-                                    using (var memory = new MemoryStream())
+                                    sslStream.CopyTo(memory);
+                                    memory.Position = 0;
+                                    var data = memory.ToArray();
+
+                                    var index = BinaryMatch(data, Encoding.ASCII.GetBytes("\r\n\r\n")) + 4;
+                                    var headers = Encoding.ASCII.GetString(data, 0, index);
+                                    memory.Position = index;
+
+                                    if (headers.IndexOf("Content-Encoding: gzip") > 0)
                                     {
-                                        sslStream.CopyTo(memory);
-                                        memory.Position = 0;
-                                        var data = memory.ToArray();
-
-                                        var index = BinaryMatch(data, Encoding.ASCII.GetBytes("\r\n\r\n")) + 4;
-                                        var headers = Encoding.ASCII.GetString(data, 0, index);
-                                        memory.Position = index;
-
-                                        if (headers.IndexOf("Content-Encoding: gzip") > 0)
+                                        using (GZipStream decompressionStream = new GZipStream(memory, CompressionMode.Decompress))
+                                        using (var decompressedMemory = new MemoryStream())
                                         {
-                                            using (GZipStream decompressionStream = new GZipStream(memory, CompressionMode.Decompress))
-                                            using (var decompressedMemory = new MemoryStream())
-                                            {
-                                                decompressionStream.CopyTo(decompressedMemory);
-                                                decompressedMemory.Position = 0;
-                                                result = Encoding.UTF8.GetString(decompressedMemory.ToArray());
-                                            }
-                                        }
-                                        else
-                                        {
-                                            result = Encoding.UTF8.GetString(data, index, data.Length - index);
+                                            decompressionStream.CopyTo(decompressedMemory);
+                                            decompressedMemory.Position = 0;
+                                            result = Encoding.UTF8.GetString(decompressedMemory.ToArray());
                                         }
                                     }
-                                    s = result;
+                                    else
+                                    {
+                                        result = Encoding.UTF8.GetString(data, index, data.Length - index);
+                                    }
                                 }
-                                clientVAR.Close();
-                            } catch(Exception e) { AddTextLog("Could not connect"); s = "Error"; Prompt.Popup(e.ToString()); }
-                            AddTextLog("Grabbed: " + s);
+                                s = result;
+                            }
+                            clientVAR.Close();
                         }
-                        else
-                        {
-                            AddTextLog("Domain Invalid");
-                            s = "Error";
-                        }
+                        catch (Exception e) { AddTextLog("Could not connect"); s = "Error"; Prompt.Popup(e.ToString()); }
+                        AddTextLog("Grabbed: " + s);
                     }
-                    catch(Exception e)
+                    else
                     {
-                        AddTextLog("Could not connect.");
+                        AddTextLog("Domain Invalid");
                         s = "Error";
-                        Prompt.Popup(e.ToString());
+                    }
+                }
+                catch (Exception e)
+                {
+                    AddTextLog("Could not connect.");
+                    s = "Error";
+                    Prompt.Popup(e.ToString());
                 }
                 //}
                 // Validate
@@ -3513,7 +3548,8 @@ namespace Revamped_BnS_Buddy
                 var certificate = X509Certificate2.CreateFromSignedFile(Application.ExecutablePath);
                 BnSBuddySerial = certificate.GetHashCode().ToString();
                 if (BnSBuddySerial != "1307602086") { Prompt.Popup("BnS Buddy signature does not match! Please Delete and get a fresh copy."); KillApp(); }
-            } catch { Prompt.Popup("BnS Buddy is not signed! Please Delete and get a fresh copy."); KillApp(); }
+            }
+            catch { Prompt.Popup("BnS Buddy is not signed! Please Delete and get a fresh copy."); KillApp(); }
             // Get Domain's Unique Serial Number
             if (BnSBuddySerial.Length > 0)
             {
@@ -3531,7 +3567,8 @@ namespace Revamped_BnS_Buddy
                         var serverCertificate = sslStream.RemoteCertificate;
                         cert = new X509Certificate2(serverCertificate);
                     }
-                } catch { AddTextLog("Could not connect securely to update server"); return false; }
+                }
+                catch { AddTextLog("Could not connect securely to update server"); return false; }
                 if (!(cert == null))
                 {
                     BnSServerCert = cert.GetHashCode().ToString();
@@ -3559,8 +3596,8 @@ namespace Revamped_BnS_Buddy
                     // Kill game process
                     foreach (var process in Process.GetProcessesByName("Client"))
                     {
-                            process.Kill();
-                            AddTextLog("Killed Game Process.");
+                        process.Kill();
+                        AddTextLog("Killed Game Process.");
                     }
                     if (customclientname != "")
                     {
@@ -3571,10 +3608,10 @@ namespace Revamped_BnS_Buddy
                             AddTextLog("Killed Game Process.");
                         }
                     }
-                } catch { AddTextLog("Could Not Kill Game Process."); }
+                }
+                catch { AddTextLog("Could Not Kill Game Process."); }
             }
         }
-
 
         public void AddTextLog(string text)
         {
@@ -3614,52 +3651,44 @@ namespace Revamped_BnS_Buddy
         }
 
         private AutoResetEvent _responcov = new AutoResetEvent(true);
+
         public void bw1_DoWork(object Sender, DoWorkEventArgs e)
         {
             // Global sock & watch
-            
-            
+
             // Set ping
             AddTextLog("Getting Ping From Server...");
-                try
+            try
+            {
+                if (metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("North America") || metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("Europe"))
                 {
-                    if (metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("North America") || metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("Europe"))
-                    {
-                        var sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                        sock.Blocking = true;
-                        var stopwatch = new Stopwatch();
-                        stopwatch.Start();
-                        sock.Connect(IP, 10100);
-                        stopwatch.Stop();
-                        int ms = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
-                        sock.Close();
-                        ping = ms;
-                    }
-                    else
-                    {
-                        ping = Convert.ToInt32(new Ping().Send(IP).RoundtripTime.ToString());
-                    }
+                    var sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    sock.Blocking = true;
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+                    sock.Connect(IP, 10100);
+                    stopwatch.Stop();
+                    int ms = Convert.ToInt32(stopwatch.Elapsed.TotalMilliseconds);
+                    sock.Close();
+                    ping = ms;
                 }
-                catch { ping = 0; }
-                if (Regex.IsMatch(ping.ToString(), @"^\d+$") == true)
+                else
                 {
-                    if (ping != 0)
-                    {
-                        metroLabel11.Text = ping + ms;
-                        // round n continue
-                        int IngameMS = Convert.ToInt32(Math.Round(ping * 2.833333333333333));
-                        int GCDMS = Convert.ToInt32(Math.Round(IngameMS * 1.666666666666667));
-                        metroLabel70.Text = IngameMS + ms;
-                        metroLabel72.Text = GCDMS + ms;
-                        AddTextLog("Got Ping."); 
-                    }
-                    else
-                    {
-                        metroLabel11.Text = "Offline";
-                        metroLabel70.Text = "Offline";
-                        metroLabel72.Text = "Offline";
-                        AddTextLog("No Ping.");
-                    }
+                    ping = Convert.ToInt32(new Ping().Send(IP).RoundtripTime.ToString());
+                }
+            }
+            catch { ping = 0; }
+            if (Regex.IsMatch(ping.ToString(), @"^\d+$") == true)
+            {
+                if (ping != 0)
+                {
+                    metroLabel11.Text = ping + ms;
+                    // round n continue
+                    int IngameMS = Convert.ToInt32(Math.Round(ping * 2.833333333333333));
+                    int GCDMS = Convert.ToInt32(Math.Round(IngameMS * 1.666666666666667));
+                    metroLabel70.Text = IngameMS + ms;
+                    metroLabel72.Text = GCDMS + ms;
+                    AddTextLog("Got Ping.");
                 }
                 else
                 {
@@ -3668,6 +3697,14 @@ namespace Revamped_BnS_Buddy
                     metroLabel72.Text = "Offline";
                     AddTextLog("No Ping.");
                 }
+            }
+            else
+            {
+                metroLabel11.Text = "Offline";
+                metroLabel70.Text = "Offline";
+                metroLabel72.Text = "Offline";
+                AddTextLog("No Ping.");
+            }
             BackgroundWorker worker = (BackgroundWorker)Sender;
             while (!worker.CancellationPending)
             {
@@ -3765,20 +3802,11 @@ namespace Revamped_BnS_Buddy
             return false;
         }
 
-        bool prioboost = false;
-        Dictionary<string, string> ClearClient = new Dictionary<string, string>();
+        private bool prioboost = false;
+        private Dictionary<string, string> ClearClient = new Dictionary<string, string>();
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // Imported from Splash
-            foreach (string i in listBox1.Items.OfType<string>().ToList())
-            {
-                string NewSplashCheck = FullPathSplash + "\\mods\\" + i;
-                if (!File.Exists(NewSplashCheck))
-                {
-                    listBox1.Items.Remove(i);
-                }
-            }
-            // End Import
             // Check Client.exe in background
             if (GameStarted == true)
             {
@@ -3946,7 +3974,8 @@ namespace Revamped_BnS_Buddy
                 if (ping.ToString() == null || ping.ToString() == "")
                     ping = 0;
                 pinger = Convert.ToInt32(ping);
-            } catch { /* ignore me */ }
+            }
+            catch { /* ignore me */ }
             if (pinger >= bad)
             {
                 metroLabel12.Text = "Bad";
@@ -4065,7 +4094,7 @@ namespace Revamped_BnS_Buddy
                 }
 
                 try
-                { 
+                {
                     if (File.Exists(FullPath + "\\backup\\00009368.bak"))
                     {
                         File.Move(FullPath + "\\backup\\00009368.bak", FullPath + "\\00009368.upk");
@@ -4143,7 +4172,6 @@ namespace Revamped_BnS_Buddy
                     {
                         AddTextLog("Could not save option!");
                     }
-
                 }
             }
         }
@@ -4253,8 +4281,8 @@ namespace Revamped_BnS_Buddy
             metroButton2.Enabled = false;
         }
 
+        private string datbackup = "";
 
-        string datbackup = "";
         public void RestoreConfigFiles()
         {
             DirectoryInfo configfolder = new DirectoryInfo(DataPath);
@@ -4277,7 +4305,7 @@ namespace Revamped_BnS_Buddy
                 catch (Exception e) { Prompt.Popup(e.ToString()); }
             }
         }
-        
+
         public void DoRestoreProcess()
         {
             try
@@ -4331,10 +4359,10 @@ namespace Revamped_BnS_Buddy
             CleanMem();
         }
 
-        
         public void CleanMem()
         {
-            if (GameStarted == true) {
+            if (GameStarted == true)
+            {
                 AddTextLog("Cleaning Memory...");
                 GCSettings.LatencyMode = GCLatencyMode.LowLatency;
                 long before = GC.GetTotalMemory(false);
@@ -4367,8 +4395,9 @@ namespace Revamped_BnS_Buddy
         {
             PlayGame();
         }
-        
-        Dictionary<string, int> ClientHandler = new Dictionary<string, int>();
+
+        private Dictionary<string, int> ClientHandler = new Dictionary<string, int>();
+
         private void PlayGame()
         {
             bool isitnew = false;
@@ -4385,7 +4414,6 @@ namespace Revamped_BnS_Buddy
             }
             if (GameStarted && !isitnew)
             {
-
                 string tmp = "";
                 try
                 {
@@ -4455,7 +4483,8 @@ namespace Revamped_BnS_Buddy
                     if (tmp != "")
                     {
                         Prompt.Popup("Error: Could not kill process owned by " + tmp + "!");
-                    } else { Prompt.Popup("Error: Process not found!"); }
+                    }
+                    else { Prompt.Popup("Error: Process not found!"); }
                     metroComboBox9.SelectedIndex = -1;
                     metroComboBox9.Items.Remove(tmp);
                     if (metroComboBox9.Items.Count > 1)
@@ -4527,7 +4556,8 @@ namespace Revamped_BnS_Buddy
             catch { AddTextLog("Could not open system.config2.xml"); }
         }
 
-        string datverifier = "";
+        private string datverifier = "";
+
         public void InternalPatcherAndVerifier()
         {
             DirectoryInfo configfolder = new DirectoryInfo(DataPath);
@@ -4601,7 +4631,8 @@ namespace Revamped_BnS_Buddy
             metroProgressSpinner1.Refresh();
         }
 
-        int CleanerVal = 0;
+        private int CleanerVal = 0;
+
         private void AutoCleaner()
         {
             // Check the setting
@@ -4619,14 +4650,15 @@ namespace Revamped_BnS_Buddy
             CClock.Interval = CleanerVal;
             CClock.Start();
         }
-        
+
         private void CClock_Tick(object sender, EventArgs e)
         {
             CleanMem();
         }
 
-        bool Maintenance = false;
-        bool LoginOccured = false;
+        private bool Maintenance = false;
+        private bool LoginOccured = false;
+
         private void LaunchGame()
         {
             // Disable mod window
@@ -4721,8 +4753,8 @@ namespace Revamped_BnS_Buddy
             // /LaunchByLauncher /Sesskey /SessKey:"" /CompanyID:"14" /ChannelGroupIndex:"-1" // Japanese
             // /launchbylauncher -lang:english /CompanyID:"12" /ChannelGroupIndex:"-1" -lang:English -lite:2 -region:0 /* NA VARS */
             // -lite:2 /sesskey /LaunchByLauncher /ServiceRegion:"15" /AuthProviderCode:"np" /ServiceNetwork:"live" /NPServerAddr:"210.64.136.126:6600" /PresenceId:"TWBNS22" /* TAIWAN VARS */
-            // AuthnToken:"mytoken" 
- 
+            // AuthnToken:"mytoken"
+
             if (metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("North America") || metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("Europe") || metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("Korean") || metroComboBox1.SelectedIndex == metroComboBox1.FindStringExact("Taiwan"))
             {
                 if (metroLabel14.Text != "Clean" && metroComboBox1.SelectedIndex != metroComboBox1.FindStringExact("Korean"))
@@ -4980,13 +5012,15 @@ namespace Revamped_BnS_Buddy
         // Seperator!
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
-        string RegPathSplash = "";
-        string FullPathSplash = "";
-        string FullBackupPathSplash = "";
-        string workingPathSplash = "";
-        string ModPathSplash = "";
-        string NewSplash = "";
-        string ExtensionSplash = "";
+        private string RegPathSplash = "";
+        private string FullPathSplash = "";
+        private string FullBackupPathSplash = ""; // old
+        private string NewFullBackupPathSplash = ""; // new
+        private string workingPathSplash = "";
+        private string ModPathSplash = ""; // old
+        private string NewModPathSplash = ""; // new
+        private string NewSplash = "";
+        private string ExtensionSplash = "";
 
         public void InitializeSplash()
         {
@@ -4995,7 +5029,7 @@ namespace Revamped_BnS_Buddy
                 // List Splash Images
                 try
                 {
-                    DirectoryInfo dinfo2 = new DirectoryInfo(@FullPathSplash + "\\mods\\");
+                    DirectoryInfo dinfo2 = new DirectoryInfo(@NewModPathSplash + "\\");
                     FileInfo[] Files2 = dinfo2.GetFiles("*.bmp");
                     foreach (FileInfo file2 in Files2)
                     {
@@ -5004,7 +5038,7 @@ namespace Revamped_BnS_Buddy
                     if (listBox1.Items.Count != 0)
                     {
                         listBox1.SelectedIndex = 0;
-                        pictureBox1.Image = System.Drawing.Image.FromFile(FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString());
+                        pictureBox1.Image = System.Drawing.Image.FromFile(NewModPathSplash + "\\" + listBox1.SelectedItem.ToString());
                     }
                     else
                     {
@@ -5013,9 +5047,9 @@ namespace Revamped_BnS_Buddy
                 }
                 catch
                 {
-                    if (Directory.GetFileSystemEntries(ModPathSplash).Length == 0)
+                    if (Directory.GetFileSystemEntries(NewModPathSplash).Length == 0)
                     {
-                        if (Directory.GetFileSystemEntries(FullBackupPathSplash).Length == 0)
+                        if (Directory.GetFileSystemEntries(NewFullBackupPathSplash).Length == 0)
                         {
                             metroButton4.Enabled = true;
                             metroButton5.Enabled = false;
@@ -5023,9 +5057,9 @@ namespace Revamped_BnS_Buddy
                         }
                         return;
                     }
-                    if (Directory.GetFileSystemEntries(ModPathSplash).Length != 0)
+                    if (Directory.GetFileSystemEntries(NewModPathSplash).Length != 0)
                     {
-                        if (Directory.GetFileSystemEntries(FullBackupPathSplash).Length != 0)
+                        if (Directory.GetFileSystemEntries(NewFullBackupPathSplash).Length != 0)
                         {
                             metroButton4.Enabled = false;
                             metroButton5.Enabled = true;
@@ -5056,14 +5090,35 @@ namespace Revamped_BnS_Buddy
         public void Verify()
         {
             // Verify Backup
-            if (File.Exists(FullBackupPathSplash + "\\Splash.bmp"))
+            if (File.Exists(NewFullBackupPathSplash + "\\Splash.bmp"))
             {
-                metroLabel17.Text = "Modded";
-                metroButton4.Enabled = false;
-                metroButton5.Enabled = true;
-                string md52 = checkMD5(FullBackupPathSplash + "\\Splash.bmp");
+                // Normal Path MD5
+                bool moddedsplash = false;
                 string md51 = checkMD5(FullPathSplash + "\\Splash.bmp");
-                if (md52 == md51) { metroLabel17.Text = "Original"; metroButton5.Enabled = false; metroButton4.Enabled = true; }
+                string md52 = "";
+                // Compare to all modded MD5
+                foreach (string file in Directory.GetFiles(NewModPathSplash))
+                {
+                    if (file.Length > 0)
+                    {
+                        md52 = checkMD5(file);
+                        if (md52 == md51)
+                        {
+                            moddedsplash = true;
+                        }
+                    }
+                }
+                // DO ETTTT
+                if (moddedsplash)
+                {
+                    metroLabel17.Text = "Modded";
+                    metroButton4.Enabled = false;
+                    metroButton5.Enabled = true;
+                }
+                else
+                {
+                    metroLabel17.Text = "Original"; metroButton5.Enabled = false; metroButton4.Enabled = true;
+                }
             }
             else
             {
@@ -5093,13 +5148,49 @@ namespace Revamped_BnS_Buddy
                 workingPathSplash = FullPathSplash;
                 // Get Backup Path & Mods Path then create if missing
                 FullBackupPathSplash = FullPathSplash + "\\backup";
+                // Create new splash path
+                Directory.CreateDirectory(AppPath + "\\Splashes\\backup"); // new backup path
+                Directory.CreateDirectory(AppPath + "\\Splashes\\mods"); // new mods path
+                NewModPathSplash = AppPath + "\\Splashes\\mods";
+                NewFullBackupPathSplash = AppPath + "\\Splashes\\backup";
+                // Continue with old
                 ModPathSplash = FullPathSplash + "\\mods";
                 // FIX PATHS
                 FullBackupPathSplash = FullBackupPathSplash.Replace(@"\\", @"\");
                 ModPathSplash = ModPathSplash.Replace(@"\\", @"\");
-                // CONTINUE
-                if (!Directory.Exists(FullBackupPathSplash)) { CreatePaths(FullBackupPathSplash); }
-                if (!Directory.Exists(ModPathSplash)) { CreatePaths(ModPathSplash); }
+                // Move existing backup splashe from old to new dir
+                if (Directory.Exists(FullBackupPathSplash))
+                {
+                    // Move backup
+                    if (File.Exists(FullBackupPathSplash + "\\Splash.bmp"))
+                    {
+                        File.Move(FullBackupPathSplash + "\\Splash.bmp", NewFullBackupPathSplash + "\\Splash.bmp");
+                    }
+                    // Clear any files
+                    foreach (string file in Directory.GetFiles(FullBackupPathSplash))
+                    {
+                        if (file.Length > 0)
+                        {
+                            File.Delete(file);
+                        }
+                    }
+                    // Delete the dir
+                    Directory.Delete(FullBackupPathSplash);
+                }
+                // Move existing modded splashes from old to new dir
+                if (Directory.Exists(ModPathSplash))
+                {
+                    foreach (string file in Directory.GetFiles(ModPathSplash))
+                    {
+                        string tmp = Path.GetFileName(file);
+                        if (file.Length > 0)
+                        {
+                            File.Move(file, NewModPathSplash + "\\" + tmp);
+                        }
+                    }
+                    // Delete the dir
+                    Directory.Delete(ModPathSplash);
+                }
             }
             else
             {
@@ -5115,7 +5206,7 @@ namespace Revamped_BnS_Buddy
         {
             // Browse folder
             if (FullPathSplash.Contains(@"\\")) { FullPathSplash = FullPathSplash.Replace(@"\\", @"\"); }
-            Process.Start("explorer.exe", FullPathSplash);
+            Process.Start("explorer.exe", NewModPathSplash);
         }
 
         private void metroLabel17_TextChanged(object sender, EventArgs e)
@@ -5142,10 +5233,11 @@ namespace Revamped_BnS_Buddy
             if (pictureBox1.Image != null)
             {
                 pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
             }
             if (listBox1.SelectedItem != null)
             {
-                NewSplash = FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString();
+                NewSplash = NewModPathSplash + "\\" + listBox1.SelectedItem.ToString();
                 if (File.Exists(NewSplash))
                 {
                     pictureBox1.Image = System.Drawing.Image.FromFile(NewSplash);
@@ -5155,6 +5247,7 @@ namespace Revamped_BnS_Buddy
                 else
                 {
                     listBox1.ClearSelected();
+                    listBox1.Items.Remove(listBox1.SelectedItem.ToString());
                     // Disable preview button
                     metroButton34.Enabled = false;
                 }
@@ -5166,11 +5259,12 @@ namespace Revamped_BnS_Buddy
             if (pictureBox1.Image != null)
             {
                 pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
                 try
                 {
                     // Backup
-                    if (File.Exists(FullBackupPathSplash + "\\Splash.bmp")) { File.Delete(FullBackupPathSplash + "\\Splash.bmp"); }
-                    File.Move(FullPathSplash + "\\Splash.bmp", FullBackupPathSplash + "\\Splash.bmp");
+                    if (File.Exists(NewFullBackupPathSplash + "\\Splash.bmp")) { File.Delete(NewFullBackupPathSplash + "\\Splash.bmp"); }
+                    File.Move(FullPathSplash + "\\Splash.bmp", NewFullBackupPathSplash + "\\Splash.bmp");
                     // Add new
                     File.Copy(NewSplash, FullPathSplash + "\\Splash.bmp", true);
                     metroLabel17.Text = "Modded";
@@ -5181,19 +5275,23 @@ namespace Revamped_BnS_Buddy
                 {
                     Prompt.Popup("Error: Could not replace image!");
                 }
-                pictureBox1.Image = System.Drawing.Image.FromFile(FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString());
+                pictureBox1.Image = System.Drawing.Image.FromFile(NewModPathSplash + "\\" + listBox1.SelectedItem.ToString());
             }
         }
 
         private void metroButton5_Click_1(object sender, EventArgs e)
         {
-            pictureBox1.Image.Dispose();
+            if (pictureBox1.Image != null)
+            {
+                pictureBox1.Image.Dispose();
+                pictureBox1.Image = null;
+            }
             try
             {
                 // Destroy modded
                 File.Delete(FullPathSplash + "\\Splash.bmp");
                 // Restore
-                File.Move(FullPathSplash + "\\backup\\Splash.bmp", FullPathSplash + "\\Splash.bmp");
+                File.Move(NewFullBackupPathSplash + "\\Splash.bmp", FullPathSplash + "\\Splash.bmp");
                 metroLabel17.Text = "Original";
                 metroButton5.Enabled = false;
                 metroButton4.Enabled = true;
@@ -5202,8 +5300,7 @@ namespace Revamped_BnS_Buddy
             {
                 Prompt.Popup("Error: Could not replace image!");
             }
-            pictureBox1.Image = System.Drawing.Image.FromFile(FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString());
-
+            pictureBox1.Image = System.Drawing.Image.FromFile(NewModPathSplash + "\\" + listBox1.SelectedItem.ToString());
         }
 
         private void metroButton7_Click_1(object sender, EventArgs e)
@@ -5215,9 +5312,27 @@ namespace Revamped_BnS_Buddy
         {
             try
             {
+                // Fail-safe
                 metroButton34.Enabled = false;
-                DirectoryInfo dinfo2 = new DirectoryInfo(@FullPathSplash + "\\mods\\");
+                // Deselect
+                listBox1.SelectedIndex = -1;
+                if (pictureBox1.Image != null)
+                {
+                    pictureBox1.Image.Dispose();
+                    pictureBox1.Image = null;
+                }
+                // Continue
+                DirectoryInfo dinfo2 = new DirectoryInfo(@NewModPathSplash + "\\");
                 FileInfo[] Files2 = dinfo2.GetFiles("*.bmp");
+                // Remove invalid files
+                foreach (string file1 in listBox1.Items)
+                {
+                    if (!File.Exists(NewModPathSplash + "\\" + file1))
+                    {
+                        listBox1.Items.Remove(file1);
+                    }
+                }
+                // Add new files
                 foreach (FileInfo file2 in Files2)
                 {
                     if (!listBox1.Items.Contains(file2.Name))
@@ -5225,20 +5340,18 @@ namespace Revamped_BnS_Buddy
                         listBox1.Items.Add(file2.Name);
                     }
                 }
-                listBox1.SelectedIndex = -1;
-                pictureBox1.Image.Dispose();
                 //pictureBox1.Image = System.Drawing.Image.FromFile(FullPathSplash + "\\mods\\" + listBox1.SelectedItem.ToString());
             }
             catch
             {
-                if (Directory.GetFileSystemEntries(ModPathSplash).Length == 0)
+                if (Directory.GetFileSystemEntries(NewModPathSplash).Length == 0)
                 {
                     metroButton4.Enabled = false;
                     metroButton5.Enabled = false;
                     metroButton6.Enabled = true;
                     return;
                 }
-                if (Directory.GetFileSystemEntries(ModPathSplash).Length != 0)
+                if (Directory.GetFileSystemEntries(NewModPathSplash).Length != 0)
                 {
                     metroButton4.Enabled = true;
                     metroButton5.Enabled = true;
@@ -5258,25 +5371,26 @@ namespace Revamped_BnS_Buddy
 
         //Imported
         public BackgroundWorker bw;
-        string backupFolderPath = "";
-        string modFolderPath = "";
-        string modsFolderPath = "";
-        string workingPath = "";
+
+        private string backupFolderPath = "";
+        private string modFolderPath = "";
+        private string modsFolderPath = "";
+        private string workingPath = "";
         public string originalFolderPath = "";
         public string bnsExeFolderPath = "";
         public string ncsoftExeFolderPath = "";
         public bool bnsFolderIsSet = true;
         public bool ncsoftFolderIsSet = true;
         public bool installFlag = true;
+
         //Imported
-        string tmpdir = "";
-        string NewPath = "";
-        string FullModPathMan = "";
-        string FullModsPathMan = "";
-        string FullSettingsPathMan = "";
-        string RealModPath = "";
+        private string tmpdir = "";
 
-
+        private string NewPath = "";
+        private string FullModPathMan = "";
+        private string FullModsPathMan = "";
+        private string FullSettingsPathMan = "";
+        private string RealModPath = "";
 
         public void InitializeManager()
         {
@@ -5438,8 +5552,6 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-
-
         public void JsonManager()
         {
             // Determine the install flag from the legacy way of checking things
@@ -5554,322 +5666,230 @@ namespace Revamped_BnS_Buddy
 
         public string newbackuppath = "";
         public string tmpnode = "";
+
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-                string path_exact = e.Argument.ToString();
-                string file_exact = Path.GetFileName(path_exact);
-                string mod_path = new DirectoryInfo(path_exact).Name;
-           
-                //if (_workerCompleted.Set() == false) { 
-                    if ((installFlag == true) && (!file_exact.Contains("(Installed)"))) //catcher
+            string path_exact = e.Argument.ToString();
+            string file_exact = Path.GetFileName(path_exact);
+            string mod_path = new DirectoryInfo(path_exact).Name;
+
+            //if (_workerCompleted.Set() == false) {
+            if ((installFlag == true) && (!file_exact.Contains("(Installed)"))) //catcher
+            {
+                RealModPath = @path_exact.ToString();
+                tmpnode = @file_exact.ToString();
+                newbackuppath = @backupFolderPath + "\\" + tmpnode;
+                DirectoryInfo dirInfo = new DirectoryInfo(RealModPath);
+                BackgroundWorker worker = sender as BackgroundWorker;
+                string message = string.Empty;
+                int fileCounter = 0;
+                int i = 0;
+                int max = dirInfo.GetFiles("*.upk").Count();
+                max += dirInfo.GetFiles("*.umap").Count();
+                int curPercent = 0;
+
+                if (max != 0)
+                {
+                    foreach (string fileName in Directory.GetFiles(RealModPath))
                     {
-                        RealModPath = @path_exact.ToString();
-                        tmpnode = @file_exact.ToString();
-                        newbackuppath = @backupFolderPath + "\\" + tmpnode;
-                        DirectoryInfo dirInfo = new DirectoryInfo(RealModPath);
-                        BackgroundWorker worker = sender as BackgroundWorker;
-                        string message = string.Empty;
-                        int fileCounter = 0;
-                        int i = 0;
-                        int max = dirInfo.GetFiles("*.upk").Count();
-                        max += dirInfo.GetFiles("*.umap").Count();
-                        int curPercent = 0;
-
-                        if (max != 0)
+                        string realfileName = fileName.Split(Path.DirectorySeparatorChar).Last();
+                        if (realfileName != "description.txt" && (realfileName.EndsWith(".upk") || realfileName.EndsWith(".umap"))) // only install proper files tweak
                         {
-
-                            foreach (string fileName in Directory.GetFiles(RealModPath))
-                            {
-                                string realfileName = fileName.Split(Path.DirectorySeparatorChar).Last();
-                                if (realfileName != "description.txt" && (realfileName.EndsWith(".upk") || realfileName.EndsWith(".umap"))) // only install proper files tweak
-                                {
-                                    CheckForIllegalCrossThreadCalls = false;
-                                    AddTextBoxLog(Environment.NewLine);
-                                    /*
-                                    try
-                                    {
-                                        // Create original files backup directory of the mod applied
-                                        if (!Directory.Exists(backupFolderPath + "\\" + tmpnode))
-                                        {
-                                            CreatePaths(backupFolderPath + "\\" + tmpnode);
-                                            newbackuppath = backupFolderPath + "\\" + tmpnode;
-                                        }
-                                        // Set folder path for the original files to go to
-
-                                        // Check if the file we're about to install, exists in CookedPC or not.
-                                        // If yes, move it away
-                                        if (File.Exists(originalFolderPath + "\\" + realfileName))
-                                        {
-                                            AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [original] to CookedPC_Backup");
-                                            File.Copy(originalFolderPath + "\\" + realfileName, newbackuppath + "\\" + realfileName, true);
-                                            AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [original] to CookedPC_Backup" + "/" + tmpnode);
-                                            AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [original] from CookedPC");
-                                            File.Delete(originalFolderPath + "\\" + realfileName);
-                                            AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [original] from CookedPC");
-                                        }
-                                        else
-                                        {
-                                            try
-                                            {
-                                                AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " (unique) [modded] to CookedPC_Mod");
-                                                string val = realfileName;
-                                                string tmp = "";
-                                                if (val.Contains(".upk"))
-                                                {
-                                                    tmp = val.Replace(".upk", " (unique).upk");
-                                                }
-                                                else if (val.Contains(".umap"))
-                                                {
-                                                    tmp = val.Replace(".umap", " (unique).umap");
-                                                }
-                                                else
-                                                {
-                                                    // failsafe
-                                                    tmp = val.Replace(".upk", " (unique).upk");
-                                                }
-                                                File.Copy(RealModPath + "\\" + realfileName, newbackuppath + "\\" + tmp, true);
-                                                AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " (unique) [modded] to CookedPC_Mod");
-                                            }
-                                            catch
-                                            {
-                                                AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " (unique) couldn't be copied to CookedPC_Mod");
-                                            }
-                                        } 
-                                    }
-                                    catch
-                                    {
-                                        // Message error
-                                        AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
-                                    } */
-                                    try
-                                    {
-                                        // Now move over the mod to the CookedPC folder
-                                        if (File.Exists(RealModPath + "\\" + realfileName))
-                                        {
-                                            AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [modded] to CookedPC/mod");
-                                    if (!Directory.Exists(modsFolderPath + "\\" + mod_path)) { Directory.CreateDirectory(modsFolderPath + "\\" + mod_path);  }
-                                            File.Copy(RealModPath + "\\" + realfileName, modsFolderPath + "\\" + mod_path + "\\" + realfileName, true);
-                                            AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [modded] to CookedPC/mod");
-                                            /*
-                                            AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [modded] from CookedPC_Mod");
-                                            File.Delete(RealModPath + "\\" + realfileName);
-                                            AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [modded] from CookedPC_Mod");
-                                            */
-                                        }
-                                    }
-                                    catch
-                                    {
-                                        // Message error
-                                        AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
-                                    }
-                                    fileCounter++;
-                                    // Increment & update stats as well as progress bar
-                                    i++;
-                                    // This operating will only get to 50%, and the file transfer will be the other 50%
-                                    curPercent = ((i * 100) / max);
-
-                                    // Update the UI
-                                    if ((worker.CancellationPending == true))
-                                    {
-                                        e.Cancel = true;
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        // Perform a time consuming operation and report progress.
-                                        Thread.Sleep(50);
-                                        worker.ReportProgress(curPercent);
-                                    }
-                                }
-                            }
-
-                            // Show how many files we moved
-                            if (fileCounter > 0)
-                            {
-                                AddTextBoxLog(Environment.NewLine);
-                                AddTextBoxLog("[Log] Done! " + fileCounter + " files were moved.");
-                            }
-                            else
-                            {
-                                AddTextBoxLog(Environment.NewLine);
-                                AddTextBoxLog("[Log] Done! No files were moved.");
-                            }
+                            CheckForIllegalCrossThreadCalls = false;
+                            AddTextBoxLog(Environment.NewLine);
+                            /*
                             try
                             {
-                                // Rename folder to installed
-                                AddTextBoxLog(Environment.NewLine);
-                                AddTextBoxLog("[Log] Creating new folder.");
-                                if (!Directory.Exists(FullModPathMan + "\\" + tmpnode + " (Installed)"))
+                                // Create original files backup directory of the mod applied
+                                if (!Directory.Exists(backupFolderPath + "\\" + tmpnode))
                                 {
-                                    string originalcopy = FullModPathMan + "\\" + tmpnode;
-                                    string altererdcopy = FullModPathMan + "\\" + tmpnode + " (Installed)";
-                                    Directory.Move(originalcopy, altererdcopy);
-                                    AddTextBoxLog(Environment.NewLine);
-                                    AddTextBoxLog("[Log] Created.");
-                                    _workerCompleted.Set();
+                                    CreatePaths(backupFolderPath + "\\" + tmpnode);
+                                    newbackuppath = backupFolderPath + "\\" + tmpnode;
+                                }
+                                // Set folder path for the original files to go to
+
+                                // Check if the file we're about to install, exists in CookedPC or not.
+                                // If yes, move it away
+                                if (File.Exists(originalFolderPath + "\\" + realfileName))
+                                {
+                                    AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [original] to CookedPC_Backup");
+                                    File.Copy(originalFolderPath + "\\" + realfileName, newbackuppath + "\\" + realfileName, true);
+                                    AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [original] to CookedPC_Backup" + "/" + tmpnode);
+                                    AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [original] from CookedPC");
+                                    File.Delete(originalFolderPath + "\\" + realfileName);
+                                    AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [original] from CookedPC");
                                 }
                                 else
                                 {
-                                    AddTextBoxLog(Environment.NewLine);
-                                    AddTextBoxLog("[Log] Skipped Creation.");
-                                }
-                                AddTextBoxLog(Environment.NewLine);
-                            }
-                            catch (Exception a) { Prompt.Popup("Error: " + a.Message); }
-                        }
-                        else { AddTextBoxLog(Environment.NewLine); AddTextBoxLog("[Notice] Can't install an empty mod folder"); _workerCompleted.Set(); }
-                    }
-                    else if ((installFlag == false) && (file_exact.Contains("(Installed)"))) //catcher
-                    {
-                        bool OLDMETHOD = false;
-                        int max = 0;
-                        RealModPath = @path_exact.ToString();
-                        tmpnode = @file_exact.ToString();
-                        newbackuppath = @backupFolderPath + "\\" + tmpnode.Replace(" (Installed)", "");
-                        if (Directory.Exists(newbackuppath))
-                        {
-                            DirectoryInfo dirInfo = new DirectoryInfo(newbackuppath);
-                            max = dirInfo.GetFiles("*.upk").Count();
-                            max += dirInfo.GetFiles("*.umap").Count();
-                            OLDMETHOD = true;
-                        }
-                        else
-                        {
-                            DirectoryInfo dirInfo = new DirectoryInfo(RealModPath);
-                            max = dirInfo.GetFiles("*.upk").Count();
-                            max += dirInfo.GetFiles("*.umap").Count();
-                        }
-                        BackgroundWorker worker = sender as BackgroundWorker;
-                        string message = string.Empty;
-                        int fileCounter = 0;
-                        int i = 0;
-                        int curPercent = 0;
-
-                        // NEW METHOD
-                        if (!OLDMETHOD)
-                        {
-                            foreach (string filename in Directory.GetFiles(RealModPath))
-                            {
-                                string realfileName = filename.Split(Path.DirectorySeparatorChar).Last();
-                                string tmp_anew = mod_path.Replace(" (Installed)","");
-                                CheckForIllegalCrossThreadCalls = false;
-                                AddTextBoxLog(Environment.NewLine);
-
-                                try
-                                {
-                                    //Prompt.Popup("File: " + modsFolderPath + "\\" + tmp_anew + "\\" + realfileName + " Count: " + Directory.GetFiles(modsFolderPath + "\\" + tmp_anew).Length.ToString());
-
-                                    // Check the file type
-                                    if (realfileName.Contains(".upk") || realfileName.Contains(".umap"))
+                                    try
                                     {
-                                        // Delete Mod from /CookedPC/mod (NEW)
-                                        if (File.Exists(modsFolderPath + "\\" + tmp_anew + "\\" + realfileName))
+                                        AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " (unique) [modded] to CookedPC_Mod");
+                                        string val = realfileName;
+                                        string tmp = "";
+                                        if (val.Contains(".upk"))
                                         {
-                                            AddTextBoxLog(Environment.NewLine + "[Removing] " + realfileName + " [modded] from CookedPC/mod"); //
-                                            File.Delete(modsFolderPath + "\\" + tmp_anew + "\\" + realfileName);
-                                            if (Directory.GetFiles(modsFolderPath + "\\" + tmp_anew).Length == 0)
-                                            {
-                                                Directory.Delete(modsFolderPath + "\\" + tmp_anew);
-                                            }
-                                            AddTextBoxLog(Environment.NewLine + "[Removed] " + realfileName + " [modded] from CookedPC/mod"); //
+                                            tmp = val.Replace(".upk", " (unique).upk");
                                         }
-
-                                        fileCounter++;
-                                        // Increment & update stats as well as progress bar
-                                        i++;
-
-                                        // This operating will only get to 50%, and the file transfer will be the other 50%
-                                        curPercent = ((i * 100) / max);
-
-                                        // Update the UI
-                                        if ((worker.CancellationPending == true))
+                                        else if (val.Contains(".umap"))
                                         {
-                                            e.Cancel = true;
-                                            break;
+                                            tmp = val.Replace(".umap", " (unique).umap");
                                         }
                                         else
                                         {
-                                            // Perform a time consuming operation and report progress.
-                                            Thread.Sleep(50);
-                                            worker.ReportProgress(curPercent);
+                                            // failsafe
+                                            tmp = val.Replace(".upk", " (unique).upk");
                                         }
+                                        File.Copy(RealModPath + "\\" + realfileName, newbackuppath + "\\" + tmp, true);
+                                        AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " (unique) [modded] to CookedPC_Mod");
                                     }
-                                }
-                                catch
-                                {
-                                    AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
+                                    catch
+                                    {
+                                        AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " (unique) couldn't be copied to CookedPC_Mod");
+                                    }
                                 }
                             }
-                        }
-
-                        // OLD METHOD
-                        if (OLDMETHOD)
-                        {
-                            foreach (string fileName in Directory.GetFiles(newbackuppath))
+                            catch
                             {
-                                string realfileName = fileName.Split(Path.DirectorySeparatorChar).Last();
-                                CheckForIllegalCrossThreadCalls = false;
-                                AddTextBoxLog(Environment.NewLine);
+                                // Message error
+                                AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
+                            } */
+                            try
+                            {
+                                // Now move over the mod to the CookedPC folder
+                                if (File.Exists(RealModPath + "\\" + realfileName))
+                                {
+                                    AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [modded] to CookedPC/mod");
+                                    if (!Directory.Exists(modsFolderPath + "\\" + mod_path)) { Directory.CreateDirectory(modsFolderPath + "\\" + mod_path); }
+                                    File.Copy(RealModPath + "\\" + realfileName, modsFolderPath + "\\" + mod_path + "\\" + realfileName, true);
+                                    AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [modded] to CookedPC/mod");
+                                    /*
+                                    AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [modded] from CookedPC_Mod");
+                                    File.Delete(RealModPath + "\\" + realfileName);
+                                    AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [modded] from CookedPC_Mod");
+                                    */
+                                }
+                            }
+                            catch
+                            {
+                                // Message error
+                                AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
+                            }
+                            fileCounter++;
+                            // Increment & update stats as well as progress bar
+                            i++;
+                            // This operating will only get to 50%, and the file transfer will be the other 50%
+                            curPercent = ((i * 100) / max);
 
+                            // Update the UI
+                            if ((worker.CancellationPending == true))
+                            {
+                                e.Cancel = true;
+                                break;
+                            }
+                            else
+                            {
+                                // Perform a time consuming operation and report progress.
+                                Thread.Sleep(50);
+                                worker.ReportProgress(curPercent);
+                            }
+                        }
+                    }
 
-                                try
-                                {
-                                    // Move the mod file back into the mods folder (OLD)
-                                    if (File.Exists(modsFolderPath + "\\" + realfileName))
-                                    {
-                                        AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [modded] to CookedPC_Mod"); //
-                                        File.Copy(modsFolderPath + "\\" + realfileName, RealModPath + "\\" + realfileName, true);
-                                        AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [modded] to CookedPC_Mod"); //
-                                        AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [modded] from CookedPC/mod"); //
-                                        File.Delete(modsFolderPath + "\\" + realfileName);
-                                        AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [modded] from CookedPC/mod"); //
-                                    }
-                                }
-                                catch
-                                {
-                                    AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
-                                }
-                                try
-                                {
-                                    // Check if the mod file we just uninstalled has a backup in the backup folder.
-                                    // If yes, move that back as the original (OLD Method only)
-                                    if (File.Exists(newbackuppath + "\\" + realfileName) && !realfileName.Contains("(unique)"))
-                                    {
-                                        AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [original] to CookedPC"); //
-                                        File.Copy(newbackuppath + "\\" + realfileName, originalFolderPath + "\\" + realfileName, true);
-                                        AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [original] to CookedPC"); //
-                                        AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [original] from CookedPC_Backup"); //
-                                        File.Delete(newbackuppath + "\\" + realfileName);
-                                        AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [original] from CookedPC_Backup"); //
-                                    }
-                                    else // (OLD Method only)
-                                    {
-                                        try
-                                        {
-                                            string val = realfileName;
-                                            string tmp = val.Replace(" (unique)", "");
-                                            AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [modded] from CookedPC_Mod");
-                                            File.Copy(newbackuppath + "\\" + realfileName, RealModPath + "\\" + tmp, true);
-                                            File.Delete(newbackuppath + "\\" + realfileName);
-                                            File.Delete(modsFolderPath + "\\" + tmp);
-                                            AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [modded] from CookedPC_Mod");
-                                        }
-                                        catch
-                                        {
-                                            AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " (unique) couldn't be copied/deleted from CookedPC_Mod");
-                                        }
-                                    }
-                                }
-                                catch
-                                {
-                                    AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
-                                }
+                    // Show how many files we moved
+                    if (fileCounter > 0)
+                    {
+                        AddTextBoxLog(Environment.NewLine);
+                        AddTextBoxLog("[Log] Done! " + fileCounter + " files were moved.");
+                    }
+                    else
+                    {
+                        AddTextBoxLog(Environment.NewLine);
+                        AddTextBoxLog("[Log] Done! No files were moved.");
+                    }
+                    try
+                    {
+                        // Rename folder to installed
+                        AddTextBoxLog(Environment.NewLine);
+                        AddTextBoxLog("[Log] Creating new folder.");
+                        if (!Directory.Exists(FullModPathMan + "\\" + tmpnode + " (Installed)"))
+                        {
+                            string originalcopy = FullModPathMan + "\\" + tmpnode;
+                            string altererdcopy = FullModPathMan + "\\" + tmpnode + " (Installed)";
+                            Directory.Move(originalcopy, altererdcopy);
+                            AddTextBoxLog(Environment.NewLine);
+                            AddTextBoxLog("[Log] Created.");
+                            _workerCompleted.Set();
+                        }
+                        else
+                        {
+                            AddTextBoxLog(Environment.NewLine);
+                            AddTextBoxLog("[Log] Skipped Creation.");
+                        }
+                        AddTextBoxLog(Environment.NewLine);
+                    }
+                    catch (Exception a) { Prompt.Popup("Error: " + a.Message); }
+                }
+                else { AddTextBoxLog(Environment.NewLine); AddTextBoxLog("[Notice] Can't install an empty mod folder"); _workerCompleted.Set(); }
+            }
+            else if ((installFlag == false) && (file_exact.Contains("(Installed)"))) //catcher
+            {
+                bool OLDMETHOD = false;
+                int max = 0;
+                RealModPath = @path_exact.ToString();
+                tmpnode = @file_exact.ToString();
+                newbackuppath = @backupFolderPath + "\\" + tmpnode.Replace(" (Installed)", "");
+                if (Directory.Exists(newbackuppath))
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(newbackuppath);
+                    max = dirInfo.GetFiles("*.upk").Count();
+                    max += dirInfo.GetFiles("*.umap").Count();
+                    OLDMETHOD = true;
+                }
+                else
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(RealModPath);
+                    max = dirInfo.GetFiles("*.upk").Count();
+                    max += dirInfo.GetFiles("*.umap").Count();
+                }
+                BackgroundWorker worker = sender as BackgroundWorker;
+                string message = string.Empty;
+                int fileCounter = 0;
+                int i = 0;
+                int curPercent = 0;
 
+                // NEW METHOD
+                if (!OLDMETHOD)
+                {
+                    foreach (string filename in Directory.GetFiles(RealModPath))
+                    {
+                        string realfileName = filename.Split(Path.DirectorySeparatorChar).Last();
+                        string tmp_anew = mod_path.Replace(" (Installed)", "");
+                        CheckForIllegalCrossThreadCalls = false;
+                        AddTextBoxLog(Environment.NewLine);
+
+                        try
+                        {
+                            //Prompt.Popup("File: " + modsFolderPath + "\\" + tmp_anew + "\\" + realfileName + " Count: " + Directory.GetFiles(modsFolderPath + "\\" + tmp_anew).Length.ToString());
+
+                            // Check the file type
+                            if (realfileName.Contains(".upk") || realfileName.Contains(".umap"))
+                            {
+                                // Delete Mod from /CookedPC/mod (NEW)
+                                if (File.Exists(modsFolderPath + "\\" + tmp_anew + "\\" + realfileName))
+                                {
+                                    AddTextBoxLog(Environment.NewLine + "[Removing] " + realfileName + " [modded] from CookedPC/mod"); //
+                                    File.Delete(modsFolderPath + "\\" + tmp_anew + "\\" + realfileName);
+                                    if (Directory.GetFiles(modsFolderPath + "\\" + tmp_anew).Length == 0)
+                                    {
+                                        Directory.Delete(modsFolderPath + "\\" + tmp_anew);
+                                    }
+                                    AddTextBoxLog(Environment.NewLine + "[Removed] " + realfileName + " [modded] from CookedPC/mod"); //
+                                }
 
                                 fileCounter++;
-
                                 // Increment & update stats as well as progress bar
                                 i++;
+
                                 // This operating will only get to 50%, and the file transfer will be the other 50%
                                 curPercent = ((i * 100) / max);
 
@@ -5887,41 +5907,131 @@ namespace Revamped_BnS_Buddy
                                 }
                             }
                         }
+                        catch
+                        {
+                            AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
+                        }
+                    }
+                }
 
-                        if (Directory.Exists(newbackuppath) && Directory.GetFiles(newbackuppath).Length == 0)
-                        {
-                            Directory.Delete(newbackuppath);
-                        }
-                        else
-                        {
-                            if (OLDMETHOD)
-                            {
-                                AddTextBoxLog(Environment.NewLine);
-                                AddTextBoxLog("[Log] Error: Restoring did not complete.");
-                            }
-                        }
+                // OLD METHOD
+                if (OLDMETHOD)
+                {
+                    foreach (string fileName in Directory.GetFiles(newbackuppath))
+                    {
+                        string realfileName = fileName.Split(Path.DirectorySeparatorChar).Last();
+                        CheckForIllegalCrossThreadCalls = false;
+                        AddTextBoxLog(Environment.NewLine);
 
-                        // Show how many files we moved
-                        if (fileCounter > 0)
-                        {
-                            AddTextBoxLog(Environment.NewLine);
-                            AddTextBoxLog("[Log] Done! " + fileCounter + " files were removed.");
-                        }
-                        else
-                        {
-                            AddTextBoxLog(Environment.NewLine);
-                            AddTextBoxLog("[Log] Done! No files were removed.");
-                        }
-                        // Rename folder to uninstalled
                         try
                         {
-                            string originalcopy = FullModPathMan + "\\" + tmpnode;
-                            string altererdcopy = FullModPathMan + "\\" + tmpnode.Replace(" (Installed)", "");
-                            Directory.Move(originalcopy, altererdcopy);
-                            _workerCompleted.Set();
+                            // Move the mod file back into the mods folder (OLD)
+                            if (File.Exists(modsFolderPath + "\\" + realfileName))
+                            {
+                                AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [modded] to CookedPC_Mod"); //
+                                File.Copy(modsFolderPath + "\\" + realfileName, RealModPath + "\\" + realfileName, true);
+                                AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [modded] to CookedPC_Mod"); //
+                                AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [modded] from CookedPC/mod"); //
+                                File.Delete(modsFolderPath + "\\" + realfileName);
+                                AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [modded] from CookedPC/mod"); //
+                            }
                         }
-                        catch (Exception a) { Prompt.Popup(a.Message); }
+                        catch
+                        {
+                            AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
+                        }
+                        try
+                        {
+                            // Check if the mod file we just uninstalled has a backup in the backup folder.
+                            // If yes, move that back as the original (OLD Method only)
+                            if (File.Exists(newbackuppath + "\\" + realfileName) && !realfileName.Contains("(unique)"))
+                            {
+                                AddTextBoxLog(Environment.NewLine + "[Copying] " + realfileName + " [original] to CookedPC"); //
+                                File.Copy(newbackuppath + "\\" + realfileName, originalFolderPath + "\\" + realfileName, true);
+                                AddTextBoxLog(Environment.NewLine + "[Copied] " + realfileName + " [original] to CookedPC"); //
+                                AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [original] from CookedPC_Backup"); //
+                                File.Delete(newbackuppath + "\\" + realfileName);
+                                AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [original] from CookedPC_Backup"); //
+                            }
+                            else // (OLD Method only)
+                            {
+                                try
+                                {
+                                    string val = realfileName;
+                                    string tmp = val.Replace(" (unique)", "");
+                                    AddTextBoxLog(Environment.NewLine + "[Deleting] " + realfileName + " [modded] from CookedPC_Mod");
+                                    File.Copy(newbackuppath + "\\" + realfileName, RealModPath + "\\" + tmp, true);
+                                    File.Delete(newbackuppath + "\\" + realfileName);
+                                    File.Delete(modsFolderPath + "\\" + tmp);
+                                    AddTextBoxLog(Environment.NewLine + "[Deleted] " + realfileName + " [modded] from CookedPC_Mod");
+                                }
+                                catch
+                                {
+                                    AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " (unique) couldn't be copied/deleted from CookedPC_Mod");
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            AddTextBoxLog(Environment.NewLine + "[Error] " + realfileName + " could not be touched!");
+                        }
+
+                        fileCounter++;
+
+                        // Increment & update stats as well as progress bar
+                        i++;
+                        // This operating will only get to 50%, and the file transfer will be the other 50%
+                        curPercent = ((i * 100) / max);
+
+                        // Update the UI
+                        if ((worker.CancellationPending == true))
+                        {
+                            e.Cancel = true;
+                            break;
+                        }
+                        else
+                        {
+                            // Perform a time consuming operation and report progress.
+                            Thread.Sleep(50);
+                            worker.ReportProgress(curPercent);
+                        }
                     }
+                }
+
+                if (Directory.Exists(newbackuppath) && Directory.GetFiles(newbackuppath).Length == 0)
+                {
+                    Directory.Delete(newbackuppath);
+                }
+                else
+                {
+                    if (OLDMETHOD)
+                    {
+                        AddTextBoxLog(Environment.NewLine);
+                        AddTextBoxLog("[Log] Error: Restoring did not complete.");
+                    }
+                }
+
+                // Show how many files we moved
+                if (fileCounter > 0)
+                {
+                    AddTextBoxLog(Environment.NewLine);
+                    AddTextBoxLog("[Log] Done! " + fileCounter + " files were removed.");
+                }
+                else
+                {
+                    AddTextBoxLog(Environment.NewLine);
+                    AddTextBoxLog("[Log] Done! No files were removed.");
+                }
+                // Rename folder to uninstalled
+                try
+                {
+                    string originalcopy = FullModPathMan + "\\" + tmpnode;
+                    string altererdcopy = FullModPathMan + "\\" + tmpnode.Replace(" (Installed)", "");
+                    Directory.Move(originalcopy, altererdcopy);
+                    _workerCompleted.Set();
+                }
+                catch (Exception a) { Prompt.Popup(a.Message); }
+            }
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -5931,8 +6041,8 @@ namespace Revamped_BnS_Buddy
             this.metroProgressBar2.Refresh();
         }
 
-        
         private AutoResetEvent _workerCompleted = new AutoResetEvent(false);
+
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if ((e.Cancelled == true))
@@ -6024,9 +6134,10 @@ namespace Revamped_BnS_Buddy
             AddTextBoxLog("[Log] Done Checking");
         }
 
-        AutoResetEvent completemodding = new AutoResetEvent(false);
-        Dictionary<int, string> Donewith = new Dictionary<int, string>();
+        private AutoResetEvent completemodding = new AutoResetEvent(false);
+        private Dictionary<int, string> Donewith = new Dictionary<int, string>();
         public string catcher = "";
+
         private async void metroButton9_Click(object sender, EventArgs e)
         {
             catcher = "";
@@ -6199,7 +6310,6 @@ namespace Revamped_BnS_Buddy
         ///////////////////////////////////////////////////////////////////////////////////////////////
         // Seperator!
         ///////////////////////////////////////////////////////////////////////////////////////////////
-
 
         private void metroToggle20_CheckedChanged(object sender, EventArgs e)
         {
@@ -6640,6 +6750,7 @@ namespace Revamped_BnS_Buddy
                 }
             }
         }
+
         private void metroToggle14_CheckedChanged(object sender, EventArgs e)
         {
             if (PathFound == true)
@@ -6837,7 +6948,7 @@ namespace Revamped_BnS_Buddy
             lineChanger("arguements = " + metroTextBox5.Text, @AppPath + "\\Settings.ini", 21);
         }
 
-        static void lineChanger(string newText, string fileName, int line_to_edit)
+        private static void lineChanger(string newText, string fileName, int line_to_edit)
         {
             string[] arrLine = File.ReadAllLines(fileName);
             arrLine[line_to_edit - 1] = newText;
@@ -6864,7 +6975,8 @@ namespace Revamped_BnS_Buddy
             Prompt.Popup("Please Restart App If Done Configurating");
         }
 
-        bool CustomModSet = false;
+        private bool CustomModSet = false;
+
         private void metroButton33_Click(object sender, EventArgs e)
         {
             if (metroTextBox7.Text.Length < 1)
@@ -7170,7 +7282,6 @@ namespace Revamped_BnS_Buddy
             if ((defaultclient == "64bit" && Directory.Exists(RegPath + LauncherPath64)) || (defaultclient == "32bit" && Directory.Exists(RegPath + LauncherPath)))
             {
                 lineChanger("defaultclient = " + defaultclient, @AppPath + "\\Settings.ini", 27);
-                
             }
             else
             {
@@ -7245,7 +7356,7 @@ namespace Revamped_BnS_Buddy
             GenerateAddons();
             treeView3.Sort();
         }
-        
+
         public void RestoreAddons()
         {
             treeView3.Visible = false;
@@ -7338,7 +7449,8 @@ namespace Revamped_BnS_Buddy
                     {
                         Directory.Delete(OLDAddonPath);
                     }
-                } catch { Prompt.Popup("Error: Could not delete old addon path!"); }
+                }
+                catch { Prompt.Popup("Error: Could not delete old addon path!"); }
             }
         }
 
@@ -7362,8 +7474,9 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        Dictionary<string, bool> AddonModded = new Dictionary<string, bool>();
-        Dictionary<int, string> AddonFiles = new Dictionary<int, string>();
+        private Dictionary<string, bool> AddonModded = new Dictionary<string, bool>();
+        private Dictionary<int, string> AddonFiles = new Dictionary<int, string>();
+
         public void StartGameAddons()
         {
             // Reset Dictionary
@@ -7442,7 +7555,7 @@ namespace Revamped_BnS_Buddy
             Show();
             this.WindowState = FormWindowState.Normal; // Undoes the minimized state of the form
         }
-        
+
         private void metroButton28_Click(object sender, EventArgs e)
         {
             RestoreAddons();
@@ -7702,8 +7815,9 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        Dictionary<int, string> Search = new Dictionary<int, string>();
-        Dictionary<int, string> Replace = new Dictionary<int, string>();
+        private Dictionary<int, string> Search = new Dictionary<int, string>();
+        private Dictionary<int, string> Replace = new Dictionary<int, string>();
+
         public void StartPatching(string filename)
         {
             // Bitness Check
@@ -7750,7 +7864,8 @@ namespace Revamped_BnS_Buddy
                         AddTextLog("Skipped addon: " + filename.Replace(".patch", "") + " because no bitness was selected");
                     }
                 }
-                if (SkipFile == false) { 
+                if (SkipFile == false)
+                {
                     // Add dat file to list of addons to mod
                     if (!AddonModded.ContainsKey(to_ToFile))
                     {
@@ -7812,7 +7927,8 @@ namespace Revamped_BnS_Buddy
                             AddTextLog("Addon: " + filename.Replace(".patch", "") + " couldn't be applied!");
                             AddTextLog("Maybe already patched?");
                         }
-                    } else { Prompt.Popup("File: " + DataPath + "\\" + ToFile + " Does not exist!  Please check your patches"); }
+                    }
+                    else { Prompt.Popup("File: " + DataPath + "\\" + ToFile + " Does not exist!  Please check your patches"); }
                 }
             }
             else if (linecount > 4)
@@ -7998,7 +8114,7 @@ namespace Revamped_BnS_Buddy
 
         private void metroButton25_Click(object sender, EventArgs e)
         {
-            if (FullAddonPath.Contains(@"\\")) { FullAddonPath = FullAddonPath.Replace(@"\\",@"\"); }
+            if (FullAddonPath.Contains(@"\\")) { FullAddonPath = FullAddonPath.Replace(@"\\", @"\"); }
             Process.Start("explorer.exe", FullAddonPath);
         }
 
@@ -8007,7 +8123,8 @@ namespace Revamped_BnS_Buddy
             RefreshAddons();
         }
 
-        bool ClearCV3 = false;
+        private bool ClearCV3 = false;
+
         private void treeView3_AfterSelect(object sender, TreeViewEventArgs e)
         {
             try
@@ -8042,10 +8159,10 @@ namespace Revamped_BnS_Buddy
         // Seperator!
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
-        Style BlueStyle = new TextStyle(Brushes.DarkCyan, null, FontStyle.Bold);
-        Style RedStyle = new TextStyle(Brushes.OrangeRed, null, FontStyle.Regular);
-        Style MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
-        Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
+        private Style BlueStyle = new TextStyle(Brushes.DarkCyan, null, FontStyle.Bold);
+        private Style RedStyle = new TextStyle(Brushes.OrangeRed, null, FontStyle.Regular);
+        private Style MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
+        private Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
         public string CustomDatFile = "";
 
         public void CreateDatPaths()
@@ -8080,7 +8197,7 @@ namespace Revamped_BnS_Buddy
                     metroLabel39.Refresh();
                     // Clear text
                     this.fastColoredTextBox1.Clear();
-                    // Load text 
+                    // Load text
                     StreamReader reader = new StreamReader(e.Node.Name);
                     this.fastColoredTextBox1.Text = reader.ReadToEnd();
                     // Close
@@ -8097,6 +8214,7 @@ namespace Revamped_BnS_Buddy
 
         public string directoryPath = "";
         public string filePath = "";
+
         private void metroComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((metroComboBox3.Items[metroComboBox3.SelectedIndex].ToString().Contains(".dat")) && (myDictionary[metroComboBox3.Items[metroComboBox3.SelectedIndex].ToString()].Length > 0))
@@ -8119,11 +8237,13 @@ namespace Revamped_BnS_Buddy
             //highlight only visible area of text
             HTMLSyntaxHighlight(fastColoredTextBox1.VisibleRange);
         }
+
         private void fctb_VisibilityChanged(object sender, EventArgs e)
         {
             //highlight only visible area of text
             HTMLSyntaxHighlight(fastColoredTextBox1.VisibleRange);
         }
+
         private void HTMLSyntaxHighlight(Range range)
         {
             //clear style of changed range
@@ -8265,7 +8385,6 @@ namespace Revamped_BnS_Buddy
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-
             if (!GameStarted)
             {
                 metroLabel39.Text = "Compiling data file...";
@@ -8326,7 +8445,8 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        Dictionary<string, string> myDictionary = new Dictionary<string, string>();
+        private Dictionary<string, string> myDictionary = new Dictionary<string, string>();
+
         private void DefaultDatValues()
         {
             // Empty if filled
@@ -8403,39 +8523,39 @@ namespace Revamped_BnS_Buddy
                         }
                     }
                     catch (Exception x) { AddTextLog("Could not remove file -> " + x.ToString()); }
-                } else { AddTextLog("Mess Already Cleaned"); }
+                }
+                else { AddTextLog("Mess Already Cleaned"); }
             }
             catch { AddTextLog("Could not remove folder -> " + DataPath + "\\editing\\" + localvar); }
         }
-
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         // Seperator!     ||     TokenGrabber
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
-        bool Debugging = false;
-        BackgroundWorker worker;
-        string username, password, epoch, pid, localIP;
-        string args = "{0}", token;
-        string LoginId, LoginIp, LoginProgramid;
-        int LoginPort, counter;
-        string LoginAppid;
-        BNSXorEncryption xor;
-        List<region> regions = new List<region>();
-        string currentAppId, currentValue;
+        private bool Debugging = false;
+        private BackgroundWorker worker;
+        private string username, password, epoch, pid, localIP;
+        private string args = "{0}", token;
+        private string LoginId, LoginIp, LoginProgramid;
+        private int LoginPort, counter;
+        private string LoginAppid;
+        private BNSXorEncryption xor;
+        private List<region> regions = new List<region>();
+        private string currentAppId, currentValue;
 
         public static BigInteger N = new BigInteger("E306EBC02F1DC69F5B437683FE3851FD9AAA6E97F4CBD42FC06C72053CBCED68EC570E6666F529C58518CF7B299B5582495DB169ADF48ECEB6D65461B4D7C75DD1DA89601D5C498EE48BB950E2D8D5E0E0C692D613483B38D381EA9674DF74D67665259C4C31A29E0B3CFF7587617260E8C58FFA0AF8339CD68DB3ADB90AAFEE");
         public static BigInteger P = new BigInteger("7A39FF57BCBFAA521DCE9C7DEFAB520640AC493E1B6024B95A28390E8F05787D");
         public static byte[] staticKey = Conversions.HexStr2Bytes("AC34F3070DC0E52302C2E8DA0E3F7B3E63223697555DF54E7122A14DBC99A3E8");
         public static BigInteger Two = new BigInteger(2);
 
-        BigInteger privateKey;
-        BigInteger exchangeKey = Two;
-        BigInteger exchangeKeyServer, session, validate;
+        private BigInteger privateKey;
+        private BigInteger exchangeKey = Two;
+        private BigInteger exchangeKeyServer, session, validate;
 
-        SHA256 sha = SHA256.Create();
-        byte[] key;
-        TcpClient LoginServer;
+        private SHA256 sha = SHA256.Create();
+        private byte[] key;
+        private TcpClient LoginServer;
 
         public void GrabToken() // Login action
         {
@@ -8498,7 +8618,8 @@ namespace Revamped_BnS_Buddy
                 LoginServer.Close();
                 worker.CancelAsync();
             }
-            if (!naeu) { 
+            if (!naeu)
+            {
                 if (metroComboBox1.SelectedItem != null)
                 {
                     string tmp = metroComboBox1.SelectedItem.ToString();
@@ -8577,7 +8698,6 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-
         private bool LauncherInfo()
         {
             metroButton1.Enabled = false;
@@ -8616,6 +8736,7 @@ namespace Revamped_BnS_Buddy
             try
             {
                 #region Check Game Online
+
                 int port = 27500;
                 MemoryStream ms = new MemoryStream();
                 BinaryWriter bw = new BinaryWriter(ms);
@@ -8658,7 +8779,8 @@ namespace Revamped_BnS_Buddy
                 ns.Close();
                 br.Close();
                 ms.Close();
-                #endregion
+
+                #endregion Check Game Online
 
                 if (!serverIsOnline && !Debugging)
                 {
@@ -8688,6 +8810,7 @@ namespace Revamped_BnS_Buddy
             try
             {
                 #region Get Login Server Info
+
                 // continue
                 int port = 27500; // 27500
                 MemoryStream ms = new MemoryStream();
@@ -8733,7 +8856,9 @@ namespace Revamped_BnS_Buddy
                 ns.Close();
                 br.Close();
                 ms.Close();
-                #endregion
+
+                #endregion Get Login Server Info
+
                 xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Settings>" + xml.Replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "").Replace("  ", "\r\n") + "\r\n</Settings>";
                 LoginId = Regex.Match(xml, "id=\"([^\"]*)\"", RegexOptions.IgnoreCase).Groups[1].Value;
                 LoginIp = Regex.Match(xml, "ip=\"([^\"]*)\"", RegexOptions.IgnoreCase).Groups[1].Value;
@@ -8775,9 +8900,10 @@ namespace Revamped_BnS_Buddy
 
         public class BNSXorEncryption
         {
-            byte[] encKey, decKey;
-            int encCounter, decCounter, encSum, decSum;
-            byte[] key;
+            private byte[] encKey, decKey;
+            private int encCounter, decCounter, encSum, decSum;
+            private byte[] key;
+
             public BNSXorEncryption(byte[] keyInt)
             {
                 key = keyInt;
@@ -8815,7 +8941,7 @@ namespace Revamped_BnS_Buddy
                 return BlockEncrypt(src, decKey, ref decCounter, ref decSum);
             }
 
-            byte[] BlockEncrypt(byte[] src, byte[] key, ref int counter, ref int sum)
+            private byte[] BlockEncrypt(byte[] src, byte[] key, ref int counter, ref int sum)
             {
                 for (int i = 0; i < src.Length; i++)
                 {
@@ -8832,7 +8958,7 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        class region
+        private class region
         {
             public string name;
             public string value;
@@ -8872,8 +8998,9 @@ namespace Revamped_BnS_Buddy
             return sb.ToString();
         }
 
-        bool uniquekeyset = false;
-        string uniquekey = "";
+        private bool uniquekeyset = false;
+        private string uniquekey = "";
+
         private void metroTextBox8_Click(object sender, EventArgs e)
         {
             if (AppStarted == true)
@@ -8927,16 +9054,20 @@ namespace Revamped_BnS_Buddy
                         {
                             File.WriteAllBytes(RegPath + LauncherPath + "\\winmm.dll", Resources.winmm_32_);
                             metroLabel81.Text = "Active";
-                        } catch { Prompt.Popup("Error: Could not apply winmm.dll to \"" + RegPath + LauncherPath + "\"!"); }
-                    } else { metroLabel81.Text = "-"; }
+                        }
+                        catch { Prompt.Popup("Error: Could not apply winmm.dll to \"" + RegPath + LauncherPath + "\"!"); }
+                    }
+                    else { metroLabel81.Text = "-"; }
                     if (Directory.Exists(RegPath + LauncherPath64))
                     {
                         try
                         {
                             File.WriteAllBytes(RegPath + LauncherPath64 + "\\winmm.dll", Resources.winmm_64_);
                             metroLabel82.Text = "Active";
-                        } catch { Prompt.Popup("Error: Could not apply winmm.dll to \"" + RegPath + LauncherPath64 + "\"!"); }
-                    } else { metroLabel82.Text = "-"; }
+                        }
+                        catch { Prompt.Popup("Error: Could not apply winmm.dll to \"" + RegPath + LauncherPath64 + "\"!"); }
+                    }
+                    else { metroLabel82.Text = "-"; }
                     // Disable Auto Login
                     if (metroLabel81.Text == "Active" || metroLabel82.Text == "Active")
                     {
@@ -9044,7 +9175,8 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        string customclientname = "";
+        private string customclientname = "";
+
         private void metroTextBox9_Click(object sender, EventArgs e)
         {
             customclientname = metroTextBox9.Text;
@@ -9085,7 +9217,8 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        System.Windows.Forms.Timer cooldown = new System.Windows.Forms.Timer();
+        private System.Windows.Forms.Timer cooldown = new System.Windows.Forms.Timer();
+
         private void metroLabel94_Click(object sender, EventArgs e)
         {
             manualcount = true;
@@ -9178,14 +9311,14 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        BigInteger GetKeyExchange()
+        private BigInteger GetKeyExchange()
         {
             if (exchangeKey == Two)
                 exchangeKey = Two.modPow(privateKey, N);
             return exchangeKey;
         }
 
-        BigInteger SHA256Hash2ArrayInverse(byte[] tmp1, byte[] tmp2)
+        private BigInteger SHA256Hash2ArrayInverse(byte[] tmp1, byte[] tmp2)
         {
             BigInteger hash;
             byte[] combine = new byte[tmp1.Length + tmp2.Length];
@@ -9197,7 +9330,7 @@ namespace Revamped_BnS_Buddy
             return hash;
         }
 
-        byte[] IntegerReverse(byte[] buf)
+        private byte[] IntegerReverse(byte[] buf)
         {
             byte[] res = new byte[buf.Length];
             for (int i = 0; i < res.Length / 4; i++)
@@ -9216,7 +9349,7 @@ namespace Revamped_BnS_Buddy
             return res;
         }
 
-        byte[] GenerateEncryptionKeyRoot(byte[] src)
+        private byte[] GenerateEncryptionKeyRoot(byte[] src)
         {
             int firstSize = src.Length;
             int startIndex = 0;
@@ -9231,7 +9364,6 @@ namespace Revamped_BnS_Buddy
                     firstSize--;
                     startIndex++;
                 } while (firstSize > 4);
-
             }
             int size = firstSize >> 1;
             half = new byte[size];
@@ -9266,7 +9398,7 @@ namespace Revamped_BnS_Buddy
             return dst;
         }
 
-        byte[] CombineBuffers(params byte[][] buffers)
+        private byte[] CombineBuffers(params byte[][] buffers)
         {
             int len = 0;
             foreach (byte[] i in buffers)
@@ -9283,7 +9415,7 @@ namespace Revamped_BnS_Buddy
             return res;
         }
 
-        byte[] Generate256BytesKey(byte[] src)
+        private byte[] Generate256BytesKey(byte[] src)
         {
             int v7 = 1;
             byte[] res = new byte[256];
@@ -9358,16 +9490,19 @@ namespace Revamped_BnS_Buddy
                                     return string.Format("POST /Sts/Connect STS/1.0\r\nl:{0}\r\n\r\n{1}", data.Length, data);
                                 }
                                 break;
+
                             case "Ping":
                                 {
                                     return "POST /Sts/Ping STS/1.0\r\nl:0\r\n\r\n";
                                 }
                                 break;
+
                             default:
                                 break;
                         }
                     }
                     break;
+
                 case "Auth":
                     {
                         switch (function)
@@ -9384,6 +9519,7 @@ namespace Revamped_BnS_Buddy
                                     return string.Format("POST /Auth/LoginStart STS/1.0\r\ns:{4}\r\np:*{0} 0 1 0 {1}\r\nl:{2}\r\n\r\n{3}", localIP, epoch, data.Length, data, counter);
                                 }
                                 break;
+
                             case "KeyData":
                                 {
                                     byte[][] values = GenerateKeyClient(exchangeKeyServer);
@@ -9410,12 +9546,14 @@ namespace Revamped_BnS_Buddy
                                     return string.Format("POST /Auth/KeyData STS/1.0\r\ns:{4}\r\np:*{0} 0 1 0 {1}\r\nl:{2}\r\n\r\n{3}", localIP, epoch, data.Length, data, counter);
                                 }
                                 break;
+
                             case "LoginFinish":
                                 {
                                     string data = "<Request>\n<Language>1</Language>\n</Request>\n";
                                     return string.Format("POST /Auth/LoginFinish STS/1.0\r\ns:{2}\r\nl:{0}\r\n\r\n{1}", data.Length, data, counter);
                                 }
                                 break;
+
                             case "RequestToken":
                                 {
                                     string data = String.Format(
@@ -9426,11 +9564,13 @@ namespace Revamped_BnS_Buddy
                                     return string.Format("POST /Auth/RequestToken STS/1.0\r\ns:{2}\r\nl:{0}\r\n\r\n{1}", data.Length, data, counter);
                                 }
                                 break;
+
                             default:
                                 break;
                         }
                     }
                     break;
+
                 default:
                     break;
             }
@@ -9444,13 +9584,13 @@ namespace Revamped_BnS_Buddy
             Prompt.Popup("You may need to close BnS Buddy then login on NCSoft Launcher to validate your ip and/or check your connection.");
         }
 
-        System.Windows.Forms.Timer countdown = new System.Windows.Forms.Timer();
+        private System.Windows.Forms.Timer countdown = new System.Windows.Forms.Timer();
+
         public void Try_Connection(object sender, DoWorkEventArgs e)
         {
-
             try
             {
-                // start timer 
+                // start timer
                 countdown.Interval = 8000;
                 countdown.Tick += new EventHandler(SlowPrompt);
                 countdown.Start();
@@ -9463,7 +9603,7 @@ namespace Revamped_BnS_Buddy
 
                 DateTime lastSent = DateTime.Now;
                 int pingInterval = 30;
-                
+
                 string packet = Builder("Sts", "Connect");
                 ns.Write(Encoding.ASCII.GetBytes(packet), 0, packet.Length);
 
@@ -9501,6 +9641,7 @@ namespace Revamped_BnS_Buddy
                 {
                     case "OK":
                         break;
+
                     case "ErrAccountNotFound":
                         Prompt.Popup("The provided email address wasn't found");
                         metroButton1.Enabled = true;
@@ -9509,11 +9650,13 @@ namespace Revamped_BnS_Buddy
                         countdown.Stop();
                         this.WindowState = FormWindowState.Normal; // Undoes the minimized state of the form
                         return;
+
                     default:
                         if (username.Length > 0 && password.Length > 0)
                         {
                             Prompt.Popup("Invalidly formated email");
-                        } else { AddTextLog("Cancelled"); }
+                        }
+                        else { AddTextLog("Cancelled"); }
                         metroButton1.Enabled = true;
                         Show(); // Shows the program on taskbar
                                 // Stop useless countdown
@@ -9524,7 +9667,7 @@ namespace Revamped_BnS_Buddy
                         return;
                 }
                 ms.Close();
-                
+
                 try
                 {
                     ms = new MemoryStream();
@@ -9574,7 +9717,7 @@ namespace Revamped_BnS_Buddy
                 ms.Close();
                 reply = Regex.Match(reply, "<KeyData>([^<]*)</KeyData>", RegexOptions.IgnoreCase).Groups[1].Value;
                 ms = new MemoryStream(Convert.FromBase64String(reply));
-                
+
                 BinaryReader br = new BinaryReader(ms);
                 session = new BigInteger(br.ReadBytes(br.ReadInt32()));
                 exchangeKeyServer = new BigInteger(br.ReadBytes(br.ReadInt32()));
@@ -9607,6 +9750,7 @@ namespace Revamped_BnS_Buddy
                 {
                     case "OK":
                         break;
+
                     case "ErrBadPasswd":
                         Prompt.Popup("Wrong Password or Email");
                         metroButton1.Enabled = true;
@@ -9615,6 +9759,7 @@ namespace Revamped_BnS_Buddy
                         countdown.Stop();
                         this.WindowState = FormWindowState.Normal; // Undoes the minimized state of the form
                         return;
+
                     case "ErrRiskMgmtDeclined":
                         Prompt.Popup("You have exceeded the number of attempts allowed.\r\nFor security reasons, login is temporarily disabled.\r\nPlease try again later.");
                         metroButton1.Enabled = true;
@@ -9623,6 +9768,7 @@ namespace Revamped_BnS_Buddy
                         countdown.Stop();
                         this.WindowState = FormWindowState.Normal; // Undoes the minimized state of the form
                         return;
+
                     default:
                         Prompt.Popup("Unknown Error: " + reply);
                         metroButton1.Enabled = true;
@@ -9802,7 +9948,7 @@ namespace Revamped_BnS_Buddy
             }
         }
 
-        void login_enable(bool yes)
+        private void login_enable(bool yes)
         {
             AddTextLog("Login successful!");
             if (!metroLabel14.Text.Contains("Clean"))
@@ -9924,9 +10070,9 @@ namespace Revamped_BnS_Buddy
                 try
                 {
                     AutoCleaner();
-                } catch { AddTextLog("Error: Could not clean memory!"); }
+                }
+                catch { AddTextLog("Error: Could not clean memory!"); }
             }
-            
         }
 
         public byte[][] GenerateKeyClient(BigInteger exchangeKey)
@@ -9954,29 +10100,23 @@ namespace Revamped_BnS_Buddy
 
             return new byte[][] { chash1, chash2 };
         }
-
-
     }
 }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Seperator!     ||     Dat Decrypter/Encrypter
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
 namespace BNSDat
 {
-    enum BXML_TYPE
+    internal enum BXML_TYPE
     {
         BXML_PLAIN,
         BXML_BINARY,
         BXML_UNKNOWN
     };
 
-    class BPKG_FTE
+    internal class BPKG_FTE
     {
         public int FilePathLength;
         public string FilePath;
@@ -9989,12 +10129,10 @@ namespace BNSDat
         public int FileDataSizeStored;
         public int FileDataOffset; // (relative) offset
         public byte[] Padding;
-
     }
 
     public class BNSDat
     {
-
         public string AES_KEY = "bns_obt_kr_2014#"; // bns_fgt_cb_2010!  bns_obt_kr_2014#  *PlayBNS(c)2014*   Comment all Xor Functions For OLD CBT2
 
         public byte[] XOR_KEY = new byte[16] { 164, 159, 216, 179, 246, 142, 57, 194, 45, 224, 97, 117, 92, 75, 26, 7 };
@@ -10074,7 +10212,6 @@ namespace BNSDat
 
         private byte[] Inflate(byte[] buffer, int sizeDecompressed, out int sizeCompressed, int compressionLevel)
         {
-
             MemoryStream output = new MemoryStream();
             Ionic.Zlib.ZlibStream zs = new Ionic.Zlib.ZlibStream(output, Ionic.Zlib.CompressionMode.Compress, (Ionic.Zlib.CompressionLevel)compressionLevel, true);
             zs.Write(buffer, 0, sizeDecompressed);
@@ -10408,11 +10545,11 @@ namespace BNSDat
         }
     }
 
-    class BXML_CONTENT
+    internal class BXML_CONTENT
     {
         public byte[] XOR_KEY;
 
-        void Xor(byte[] buffer, int size)
+        private void Xor(byte[] buffer, int size)
         {
             for (int i = 0; i < size; i++)
             {
@@ -10420,7 +10557,7 @@ namespace BNSDat
             }
         }
 
-        bool Keep_XML_WhiteSpace = true;
+        private bool Keep_XML_WhiteSpace = true;
 
         public void Read(Stream iStream, BXML_TYPE iType)
         {
@@ -10508,12 +10645,10 @@ namespace BNSDat
                 oStream.Position = 12;
                 bw.Write(FileSize);
             }
-
         }
 
         private void ReadNode(Stream iStream, XmlNode parent = null)
         {
-
             XmlNode node = null;
             BinaryReader br = new BinaryReader(iStream);
             int Type = 1;
@@ -10521,7 +10656,6 @@ namespace BNSDat
             {
                 Type = br.ReadInt32();
             }
-
 
             if (Type == 1)
             {
@@ -10684,7 +10818,6 @@ namespace BNSDat
                 byte[] TextBuffer = Encoding.Unicode.GetBytes(Text);
                 Xor(TextBuffer, 2 * TextLength);
                 bw.Write(TextBuffer);
-
             }
 
             if (Type > 2)
@@ -10722,20 +10855,22 @@ namespace BNSDat
             return true;
         }
 
-        byte[] Signature;                  // 8 byte
-        int Version;                   // 4 byte
-        int FileSize;                  // 4 byte
-        byte[] Padding;                    // 64 byte
-        bool Unknown;                       // 1 byte
-        // TODO: add to CDATA ?
-        int OriginalPathLength;        // 4 byte
-        byte[] OriginalPath;               // 2*OriginalPathLength bytes
+        private byte[] Signature;                  // 8 byte
+        private int Version;                   // 4 byte
+        private int FileSize;                  // 4 byte
+        private byte[] Padding;                    // 64 byte
+        private bool Unknown;                       // 1 byte
 
-        int AutoID;
-        XmlDocument Nodes = new XmlDocument();
+        // TODO: add to CDATA ?
+        private int OriginalPathLength;        // 4 byte
+
+        private byte[] OriginalPath;               // 2*OriginalPathLength bytes
+
+        private int AutoID;
+        private XmlDocument Nodes = new XmlDocument();
     }
 
-    class BXML
+    internal class BXML
     {
         private BXML_CONTENT _content = new BXML_CONTENT();
 

@@ -73,6 +73,12 @@ namespace Revamped_BnS_Buddy
             this.metroTextBox1 = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.metroButton35 = new MetroFramework.Controls.MetroButton();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.Donators = new MetroFramework.Controls.MetroTabPage();
+            this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel24 = new MetroFramework.Controls.MetroLabel();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.metroButton34 = new MetroFramework.Controls.MetroButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -83,9 +89,6 @@ namespace Revamped_BnS_Buddy
             this.metroButton6 = new MetroFramework.Controls.MetroButton();
             this.metroButton5 = new MetroFramework.Controls.MetroButton();
             this.metroButton4 = new MetroFramework.Controls.MetroButton();
-            this.Donators = new MetroFramework.Controls.MetroTabPage();
-            this.metroLabel23 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel24 = new MetroFramework.Controls.MetroLabel();
             this.Extras = new MetroFramework.Controls.MetroTabPage();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.metroLabel98 = new MetroFramework.Controls.MetroLabel();
@@ -296,9 +299,11 @@ namespace Revamped_BnS_Buddy
             this.Launcher.SuspendLayout();
             this.metroPanel6.SuspendLayout();
             this.metroPanel1.SuspendLayout();
+            this.metroTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.Donators.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.Donators.SuspendLayout();
             this.Extras.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -344,10 +349,11 @@ namespace Revamped_BnS_Buddy
             // 
             // metroTabControl1
             // 
-            this.metroTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.metroTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroTabControl1.Controls.Add(this.Launcher);
+            this.metroTabControl1.Controls.Add(this.metroTabPage1);
             this.metroTabControl1.Controls.Add(this.Donators);
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Controls.Add(this.Extras);
@@ -904,6 +910,81 @@ namespace Revamped_BnS_Buddy
             this.metroToolTip1.SetToolTip(this.metroButton1, "Patch! and/or Play!");
             this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
             // 
+            // metroTabPage1
+            // 
+            this.metroTabPage1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.metroTabPage1.Controls.Add(this.metroButton35);
+            this.metroTabPage1.Controls.Add(this.pictureBox2);
+            this.metroTabPage1.HorizontalScrollbarBarColor = true;
+            this.metroTabPage1.Location = new System.Drawing.Point(4, 35);
+            this.metroTabPage1.Name = "metroTabPage1";
+            this.metroTabPage1.Size = new System.Drawing.Size(687, 318);
+            this.metroTabPage1.TabIndex = 9;
+            this.metroTabPage1.Text = "Ads";
+            this.metroTabPage1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroTabPage1.VerticalScrollbarBarColor = true;
+            // 
+            // metroButton35
+            // 
+            this.metroButton35.Highlight = true;
+            this.metroButton35.Location = new System.Drawing.Point(609, 292);
+            this.metroButton35.Name = "metroButton35";
+            this.metroButton35.Size = new System.Drawing.Size(75, 23);
+            this.metroButton35.TabIndex = 11;
+            this.metroButton35.Text = "Skip Ad";
+            this.metroButton35.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroButton35.Click += new System.EventHandler(this.metroButton35_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(687, 318);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // Donators
+            // 
+            this.Donators.Controls.Add(this.metroLabel23);
+            this.Donators.Controls.Add(this.metroLabel24);
+            this.Donators.HorizontalScrollbarBarColor = true;
+            this.Donators.Location = new System.Drawing.Point(4, 35);
+            this.Donators.Name = "Donators";
+            this.Donators.Size = new System.Drawing.Size(687, 318);
+            this.Donators.TabIndex = 5;
+            this.Donators.Text = "Donators";
+            this.Donators.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.Donators.VerticalScrollbarBarColor = true;
+            // 
+            // metroLabel23
+            // 
+            this.metroLabel23.AutoSize = true;
+            this.metroLabel23.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel23.Location = new System.Drawing.Point(192, 131);
+            this.metroLabel23.Name = "metroLabel23";
+            this.metroLabel23.Size = new System.Drawing.Size(301, 25);
+            this.metroLabel23.TabIndex = 3;
+            this.metroLabel23.Text = "Thanks everyone for the donations <3";
+            this.metroLabel23.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // metroLabel24
+            // 
+            this.metroLabel24.FontSize = MetroFramework.MetroLabelSize.Small;
+            this.metroLabel24.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.metroLabel24.Location = new System.Drawing.Point(3, 9);
+            this.metroLabel24.Name = "metroLabel24";
+            this.metroLabel24.Size = new System.Drawing.Size(681, 295);
+            this.metroLabel24.TabIndex = 4;
+            this.metroLabel24.Text = resources.GetString("metroLabel24.Text");
+            this.metroLabel24.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.metroLabel24.UseStyleColors = true;
+            // 
             // metroTabPage3
             // 
             this.metroTabPage3.Controls.Add(this.metroButton34);
@@ -1028,42 +1109,6 @@ namespace Revamped_BnS_Buddy
             this.metroButton4.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroToolTip1.SetToolTip(this.metroButton4, "Change splash art");
             this.metroButton4.Click += new System.EventHandler(this.metroButton4_Click_1);
-            // 
-            // Donators
-            // 
-            this.Donators.Controls.Add(this.metroLabel23);
-            this.Donators.Controls.Add(this.metroLabel24);
-            this.Donators.HorizontalScrollbarBarColor = true;
-            this.Donators.Location = new System.Drawing.Point(4, 35);
-            this.Donators.Name = "Donators";
-            this.Donators.Size = new System.Drawing.Size(687, 318);
-            this.Donators.TabIndex = 5;
-            this.Donators.Text = "Donators";
-            this.Donators.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Donators.VerticalScrollbarBarColor = true;
-            // 
-            // metroLabel23
-            // 
-            this.metroLabel23.AutoSize = true;
-            this.metroLabel23.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel23.Location = new System.Drawing.Point(192, 131);
-            this.metroLabel23.Name = "metroLabel23";
-            this.metroLabel23.Size = new System.Drawing.Size(301, 25);
-            this.metroLabel23.TabIndex = 3;
-            this.metroLabel23.Text = "Thanks everyone for the donations <3";
-            this.metroLabel23.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // metroLabel24
-            // 
-            this.metroLabel24.FontSize = MetroFramework.MetroLabelSize.Small;
-            this.metroLabel24.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel24.Location = new System.Drawing.Point(3, 9);
-            this.metroLabel24.Name = "metroLabel24";
-            this.metroLabel24.Size = new System.Drawing.Size(681, 295);
-            this.metroLabel24.TabIndex = 4;
-            this.metroLabel24.Text = resources.GetString("metroLabel24.Text");
-            this.metroLabel24.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroLabel24.UseStyleColors = true;
             // 
             // Extras
             // 
@@ -1453,8 +1498,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroComboBox3
             // 
-            this.metroComboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.metroComboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroComboBox3.FormattingEnabled = true;
             this.metroComboBox3.ItemHeight = 23;
@@ -1467,8 +1512,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroLabel37
             // 
-            this.metroLabel37.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.metroLabel37.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroLabel37.AutoSize = true;
             this.metroLabel37.Location = new System.Drawing.Point(2, 34);
@@ -1480,8 +1525,8 @@ namespace Revamped_BnS_Buddy
             // 
             // treeView1
             // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeView1.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -1571,8 +1616,8 @@ namespace Revamped_BnS_Buddy
             // 
             // metroPanel2
             // 
-            this.metroPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.metroPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroPanel2.BorderStyle = MetroFramework.Drawing.MetroBorderStyle.FixedSingle;
             this.metroPanel2.Controls.Add(this.metroLabel39);
@@ -1618,8 +1663,8 @@ namespace Revamped_BnS_Buddy
             // 
             // fastColoredTextBox1
             // 
-            this.fastColoredTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.fastColoredTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
         '(',
@@ -1641,7 +1686,6 @@ namespace Revamped_BnS_Buddy
             this.fastColoredTextBox1.CharWidth = 8;
             this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.fastColoredTextBox1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.fastColoredTextBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.fastColoredTextBox1.IsReplaceMode = false;
             this.fastColoredTextBox1.Location = new System.Drawing.Point(0, 24);
@@ -3775,11 +3819,13 @@ namespace Revamped_BnS_Buddy
             this.metroPanel6.PerformLayout();
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
+            this.metroTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.Donators.ResumeLayout(false);
+            this.Donators.PerformLayout();
             this.metroTabPage3.ResumeLayout(false);
             this.metroTabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.Donators.ResumeLayout(false);
-            this.Donators.PerformLayout();
             this.Extras.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
@@ -4122,6 +4168,9 @@ namespace Revamped_BnS_Buddy
         private MetroFramework.Controls.MetroComboBox metroComboBox4;
         private MetroFramework.Controls.MetroButton metroButton32;
         private MetroFramework.Controls.MetroButton metroButton34;
+        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private MetroFramework.Controls.MetroButton metroButton35;
     }
 }
 
