@@ -29,6 +29,12 @@ Requirements:
 
 Change Log:
 
+Version 5.8.9.6
++ Added: Ads *Jumps into the world of sponsoring*
++ Added: Automatically extract MetroFramework.dll when missing
++ Reworked: Splash changer now properly checking if splash is modded or not AND changed to where BnS Buddy is located
++ Fixed Bug: Pressing Refreh in splash changer and switch tab back and forth will error out the viewer
+
 Version 5.8.9.5
 + Added: Popup for missing MetroFramework.dll file
 + Added: Auto-resize for email in login form
